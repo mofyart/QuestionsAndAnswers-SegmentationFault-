@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="background-aurora"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">SegmentationFault</div>
+            <div class="search">
+                <input type="text" name="search" placeholder="Search">
+                <button class="search-button">ASK</button>
+            </div>
+            <div class="profile">
+                <div class="avatar"></div>
+                <div class="profile-info">
+                    <p>Artem</p>
+                    <div class="profile-actions">
+                        <a href="#">settings</a>
+                        <a href="#">log out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="main-content">
+            {% block content %}
+            {% endblock %}
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <h3>Popular Tags</h3>
+                    <div class="tag-cloud">
+                        <a href="#" class="tag-perl">perl</a>
+                        <a href="#" class="tag-python">python</a>
+                        <a href="#" class="tag-technopark">TechnoPark</a>
+                        <a href="#" class="tag-mysql">MySQL</a>
+                        <a href="#" class="tag-django">django</a>
+                        <a href="#" class="tag-mailru">Mail.Ru</a>
+                        <a href="#" class="tag-voloshin">Voloshin</a>
+                        <a href="#" class="tag-firefox">Firefox</a>
+                    </div>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>Best Members</h3>
+                    <ul class="member-list">
+                        <li><a href="#">Artem</a></li>
+                        <li><a href="#">Luka</a></li>
+                        <li><a href="#">Andrey</a></li>
+                        <li><a href="#">Nikita</a></li>
+                        <li><a href="#">Leha</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <div class="questions-list">
+        <div class="questions-header">
+            <h1>New Questions</h1>
+            <a href="#">Hot Questions</a>
+        </div>
+
+        <article class="question-item">
+            <div class="question-meta">
+                <div class="avatar-question"></div>
+                <div class="vote-controls">
+                    <span>▲</span>
+                    <div class="vote-count">5</div>
+                    <span>▼</span>
+                </div>
+            </div>
+            <div class="question-details">
+                <h2 class="question-title"><a href="#">First</a></h2>
+                <p class="question-snippet">«text-fill-color: transparent;» — это часть кода, которая устанавливает прозрачность символов текста с помощью свойства text-fill-color в CSS. </p>
+                <div class="question-footer">
+                    <a href="#" class="answer-link">answer (3)</a>
+                    <div class="tags">
+                        Tags:
+                        <a href="#" class="tag">tag1</a>
+                        <a href="#" class="tag">tag2</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="question-item">
+            <div class="question-meta">
+                <div class="avatar-question"></div>
+                <div class="vote-controls">
+                    <span>▲</span>
+                    <div class="vote-count">5</div>
+                    <span>▼</span>
+                </div>
+            </div>
+            <div class="question-details">
+                <h2 class="question-title"><a href="#">Second</a></h2>
+                <p class="question-snippet">asdsaoks;ckslncls</p>
+                <div class="question-footer">
+                    <a href="#" class="answer-link">answer (3)</a>
+                    <div class="tags">
+                        Tags:
+                        <a href="#" class="tag">tag1</a>
+                        <a href="#" class="tag">tag2</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="question-item">
+            <div class="question-meta">
+                <div class="avatar-question"></div>
+                <div class="vote-controls">
+                    <span>▲</span>
+                    <div class="vote-count">5</div>
+                    <span>▼</span>
+                </div>
+            </div>
+            <div class="question-details">
+                <h2 class="question-title"><a href="#">Third</a></h2>
+                <p class="question-snippet">Это свойство обычно применяется для создания различных эффектов шрифта, например, текста с градиентом или контуром.</p>
+                <div class="question-footer">
+                    <a href="#" class="answer-link">answer (3)</a>
+                    <div class="tags">
+                        Tags:
+                        <a href="#" class="tag">tag1</a>
+                        <a href="#" class="tag">tag2</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+{% endblock %}

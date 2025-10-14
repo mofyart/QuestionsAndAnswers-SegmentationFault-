@@ -1,0 +1,571 @@
+/* --- Общие стили и фон --- */
+body {
+    background-color: #0f0f1a;
+    color: #e0e0e0;
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    overflow-x: hidden; /* Предотвращает горизонтальный скролл */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- Эффект "Аврора" на фоне --- */
+.background-aurora {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.background-aurora::before,
+.background-aurora::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(150px); /* Сильное размытие для мягкого свечения */
+    opacity: 0.3;
+}
+
+/* Розовый круг */
+.background-aurora::before {
+    background: linear-gradient(90deg, #5f9aff, #0022ff);
+    width: 500px;
+    height: 500px;
+    top: -100px;
+    left: -200px;
+}
+
+/* Фиолетовый круг */
+.background-aurora::after {
+    background: linear-gradient(90deg, #5b4ae8, #3b82f6);
+    width: 600px;
+    height: 600px;
+    bottom: -200px;
+    right: -250px;
+}
+
+/* --- Шапка сайта (Header) --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.logo {
+    font-size: 3rem; /* Немного увеличим для заметности */
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    background-image: linear-gradient(45deg, #7639bd, #9373ff, #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    margin-right: 30px; /* Отступ от профиля */
+}
+
+.search input[type="text"] {
+    background-color: #1E1B2E; /* Темно-фиолетовый фон */
+    border: 1px solid #4A4A6A;   /* Слегка видимая граница */
+    border-radius: 8px;          /* Скругленные углы */
+    color: #FFFFFF;              /* Белый цвет текста */
+    padding: 10px 15px;          /* Внутренние отступы */
+    font-size: 16px;             /* Размер шрифта */
+    outline: none;               /* Убираем обводку при фокусе */
+    transition: border-color 0.3s ease; /* Плавный переход для рамки */
+    width: 250px;                /* Примерная ширина */
+}
+
+.search input[type="text"]::placeholder {
+    color: #8A8AA0; /* Цвет плейсхолдера */
+}
+
+.search input[type="text"]:focus {
+    border-color: #7B68EE; /* Цвет рамки при фокусе (сине-фиолетовый) */
+}
+
+.search-button {
+    background-color: #007BFF; /* Ярко-синий цвет кнопки */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px; /* Отступ от поля ввода */
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3; /* Более темный синий при наведении */
+}
+
+
+/* Стили для профиля */
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    background-color: #4A4A6A; /* Заглушка для аватара */
+    border-radius: 50%;       /* Круглая форма */
+    margin-right: 15px;
+}
+
+.profile-info p {
+    margin: 0 0 5px 0;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.profile-actions a {
+    color: #8A8AA0;             /* Сероватый цвет ссылок */
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 10px;         /* Отступ между ссылками */
+    transition: color 0.3s ease;
+}
+
+.profile-actions a:last-child {
+    margin-right: 0;
+}
+
+.profile-actions a:hover {
+    color: #FFFFFF; /* Белый цвет при наведении */
+    text-decoration: underline;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #c0c0c0;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ffffff;
+}
+
+
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    padding: 4rem 0;
+}
+
+.hero-text {
+    flex: 1; /* Занимает доступное пространство */
+    max-width: 50%;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+}
+
+.cta-button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    background-image: linear-gradient(90deg, #4a5de8 0%, #23197b 100%);
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hero-image {
+    flex: 1;
+    max-width: 50%;
+    height: 450px;
+    background: rgba(255, 255, 255, 0.05); /* Легкий фон-плейсхолдер */
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Добавьте сюда свой <img> или стили для фона */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.2);
+}
+.hero-image::after {
+    content: 'Image Placeholder';
+}
+
+/* --- Стили для основного контента (добавьте это в конец файла) --- */
+
+/* --- Макет в две колонки --- */
+.main-content {
+    display: flex;
+    gap: 2rem; /* Расстояние между колонками */
+    padding: 2rem 0;
+    align-items: flex-start; /* Колонки начинаются с самого верха */
+}
+
+.questions-list {
+    flex: 3; /* Левая колонка занимает 3/4 доступного места */
+}
+
+.sidebar {
+    flex: 1; /* Правая колонка (сайдбар) занимает 1/4 */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 85px;
+}
+
+.questions-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.questions-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #ffffff;
+}
+
+.questions-header a {
+    font-size: 1.1rem;
+    color: #009dff;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.questions-header a:hover {
+    color: #4dafff;
+}
+
+
+/* --- Стили для одного блока вопроса --- */
+.question-item {
+    background: rgba(30, 27, 46, 0.7); /* Полупрозрачный фон */
+    border: 1px solid #4A4A6A;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.question-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar-question {
+    width: 64px;
+    height: 64px;
+    background-color: #4A4A6A;
+    border-radius: 8px; /* Как на макете - квадратный */
+}
+
+.vote-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1E1B2E;
+    border: 1px solid #4A4A6A;
+    border-radius: 8px;
+    padding: 5px;
+    font-weight: bold;
+    color: #c0c0c0;
+}
+.vote-controls span {
+    cursor: pointer;
+    padding: 0 5px;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+.vote-controls span:hover {
+    color: #fff;
+}
+.vote-count {
+    font-size: 1.2rem;
+    color: #fff;
+    padding: 5px 0;
+}
+
+
+.question-details {
+    flex: 1;
+}
+
+.question-title a {
+    font-size: 1.5rem;
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+.question-title a:hover {
+    color: #7B68EE;
+}
+.question-title {
+    margin: 0 0 0.5rem 0;
+}
+
+
+.question-snippet {
+    margin: 0 0 1rem 0;
+    color: #a0a0b0;
+    line-height: 1.5;
+}
+
+.question-footer {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #8A8AA0;
+}
+
+.answer-link {
+    color: #009dff;
+    text-decoration: none;
+}
+.answer-link:hover {
+    text-decoration: underline;
+}
+
+.tags a.tag {
+    display: inline-block;
+    background-color: #3a3a5a;
+    color: #e0e0e0;
+    padding: 4px 8px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 5px;
+    transition: background-color 0.3s ease;
+}
+.tags a.tag:hover {
+    background-color: #4a5de8;
+}
+
+
+/* --- Стили для сайдбара --- */
+.sidebar-widget {
+    background: rgba(30, 27, 46, 0.7);
+    border: 1px solid #4A4A6A;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+.sidebar-widget h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    border-bottom: 1px solid #4A4A6A;
+    padding-bottom: 0.75rem;
+}
+
+/* Облако тегов */
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+.tag-cloud a {
+    text-decoration: none;
+    font-weight: bold;
+}
+.tag-python { font-size: 1.4em; color: #ff5722; }
+.tag-django { font-size: 1.2em; color: #00c853; }
+.tag-mysql { font-size: 1.3em; color: #f44336; }
+.tag-firefox { font-size: 1.1em; color: #ff9800; }
+.tag-perl, .tag-technopark, .tag-mailru, .tag-voloshin {
+    color: #c0c0c0;
+}
+.tag-cloud a:hover {
+    filter: brightness(1.2);
+}
+
+/* Список лучших участников */
+.member-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.member-list li {
+    margin-bottom: 0.5rem;
+}
+.member-list a {
+    color: #009dff;
+    text-decoration: none;
+}
+.member-list a:hover {
+    text-decoration: underline;
+}
+
+/* --- Стили для основной левой колонки и формы --- */
+
+.content-column {
+    flex: 3; /* Левая колонка занимает больше места */
+}
+
+/* Стили самой формы */
+.question-form .form-group {
+    margin-bottom: 2rem;
+}
+
+.question-form label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 400; /* Обычная жирность */
+    color: #e0e0e0;
+    margin-bottom: 0.75rem;
+}
+
+.question-form input[type="text"],
+.question-form textarea {
+    width: 100%;
+    background-color: #1E1B2E; /* Темно-фиолетовый фон */
+    border: 1px solid #4A4A6A;   /* Слегка видимая граница */
+    border-radius: 8px;
+    color: #FFFFFF;
+    padding: 14px 18px; /* Немного увеличим отступы */
+    font-size: 1rem;
+    font-family: 'Manrope', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.question-form input[type="text"]::placeholder,
+.question-form textarea::placeholder {
+    color: #8A8AA0;
+}
+
+.question-form input[type="text"]:focus,
+.question-form textarea:focus {
+    border-color: #7B68EE; /* Цвет рамки при фокусе */
+    box-shadow: 0 0 10px rgba(123, 104, 238, 0.2); /* Легкое свечение */
+}
+
+.question-form textarea {
+    resize: vertical;
+    min-height: 150px; /* Увеличим минимальную высоту */
+}
+
+.question-form small {
+    display: block;
+    margin-top: 0.5rem;
+    color: #8A8AA0;
+    font-size: 0.9rem;
+}
+
+.submit-question-button {
+    padding: 12px 35px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007BFF; /* Чистый синий цвет */
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+.submit-question-button:hover {
+    background-color: #0056b3; /* Более темный синий при наведении */
+}
+
+/* Стили для сайдбара (проверьте, что они у вас есть) */
+.sidebar {
+    flex: 1.2; /* Немного увеличим долю сайдбара */
+}
+
+.sidebar-widget {
+    background: rgba(30, 27, 46, 0.7);
+    border: 1px solid #4A4A6A;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+.sidebar-widget:last-child {
+    margin-bottom: 0;
+}
+.sidebar-widget h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    border-bottom: 1px solid #4A4A6A;
+    padding-bottom: 0.75rem;
+}
+
+/* --- Адаптивность для мобильных устройств --- */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text, .hero-image {
+        max-width: 100%;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-image {
+        height: 300px;
+        margin-top: 2rem;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

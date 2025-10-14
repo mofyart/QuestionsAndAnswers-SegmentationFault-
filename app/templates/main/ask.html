@@ -1,0 +1,32 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}New Question{% endblock %}
+
+{% block content %}
+    <div class="content-column">
+        <div class="questions-header">
+            <h1>New Questions</h1>
+            <a href="#">Hot Questions</a>
+        </div>
+
+        <form action="#" method="post" class="question-form">
+            <div class="form-group">
+                <label for="question-title">Title</label>
+                <input type="text" id="question-title" name="title" placeholder="Write text, please">
+            </div>
+
+            <div class="form-group">
+                <label for="question-text">Text</label>
+                <textarea id="question-text" name="text" rows="8" placeholder="Really, how ? Have no idea about it"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-tags">Tags</label>
+                <input type="text" id="question-tags" name="tags" placeholder="moon, park, puzzle">
+                <small>Specify the tags separated by commas</small>
+            </div>
+
+            <button type="submit" class="submit-question-button">Create</button>
+        </form>
+    </div>
+{% endblock %}
