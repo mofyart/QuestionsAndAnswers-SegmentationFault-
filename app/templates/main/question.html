@@ -1,0 +1,76 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Вопрос{% endblock %}
+
+{% block content %}
+    <div class="questions-list">
+        <article class="question-full-item">
+            <div class="question-meta">
+                <div class="avatar-question"></div>
+                <div class="vote-controls">
+                    <span>▲</span>
+                    <div class="vote-count">5</div>
+                    <span>▼</span>
+                </div>
+            </div>
+            <div class="question-details">
+                <h1 class="question-full-title">How to build a moon park ?</h1>
+                <p class="question-full-body">
+                    Lorem ipsum — dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                </p>
+                <div class="question-footer">
+                    <div class="tags">
+                        Tags:
+                        <a href="#" class="tag">black-jack</a>
+                        <a href="#" class="tag">bender</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="answers-section">
+            <article class="answer-item correct-answer">
+                 <div class="question-meta">
+                    <div class="avatar-question"></div>
+                    <div class="vote-controls">
+                        <span>▲</span>
+                        <div class="vote-count">5</div>
+                        <span>▼</span>
+                    </div>
+                </div>
+                <div class="answer-details">
+                    <p>First of all I would like to thank you for the invitation to participate in such a ... Russia is the huge territory which in many respects needs to be render habitable.</p>
+                    <div class="correct-marker">
+                        <input type="checkbox" id="correct-1" checked disabled>
+                        <label for="correct-1">Correct!</label>
+                    </div>
+                </div>
+            </article>
+
+            <article class="answer-item item correct-answer">
+                 <div class="question-meta">
+                    <div class="avatar-question"></div>
+                    <div class="vote-controls">
+                        <span>▲</span>
+                        <div class="vote-count">3</div>
+                        <span>▼</span>
+                    </div>
+                </div>
+                <div class="answer-details">
+                    <p>First of all I would like to thank you for the invitation to participate in such a ... Russia is the huge territory which in many respects needs to be render habitable.</p>
+                     <div class="correct-marker">
+                        <input type="checkbox" id="correct-2">
+                        <label for="correct-2">Correct!</label>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="answers-section">
+            <form action="#" method="post" class="new-answer-form">
+                <textarea name="answer-text" placeholder="Enter your answer here.." rows="6"></textarea>
+                <button type="submit" class="submit-button">Answer</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -12,5 +12,6 @@ urlpatterns = [
     path('question/', include('app.urls')),
     path('tag/', include('app.urls')),
     path('settings/', include('app.urls')),
-    path('login/', include('app.urls'))
+    path('login/', include('app.urls')),
+    path('register/', include('app.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

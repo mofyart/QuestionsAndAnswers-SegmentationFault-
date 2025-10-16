@@ -1,0 +1,46 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Настройка аккаунта{% endblock %}
+
+{% block content %}
+    <div class="content-column">
+        <div class="questions-header">
+            <h1>Settings: Artem</h1>
+        </div>
+        <div class="login-container">
+            <form action="#" method="post" class="login-form">
+                <div class="form-group">
+                    <label for="login-username">Login</label>
+                    <input type="text" id="login-username" name="username" placeholder="Enter your login here">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Email</label>
+                    <input type="password" id="login-email" name="email" placeholder="Enter your Email here">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">NickName</label>
+                    <input type="password" id="login-nickname" name="nickname" placeholder="Enter your nickname here">
+                </div>
+
+                <div class="form-group avatar-group">
+                    <div class="form-actions">
+                            <label>Upload avatar</label>
+                            <label for="avatar_input" class="file-choose-button">Choose</label>
+                            <input type="file" id="avatar_input" name="avatar_upload" class="file-input-hidden">
+                        </div>
+                    <div class="avatar-controls">
+                        <div class="avatar-preview">
+                            <img src="https://i.pravatar.cc/100" alt="Current Avatar">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                     <button type="submit" class="submit-button">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

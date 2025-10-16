@@ -1,10 +1,10 @@
-/* --- Общие стили и фон --- */
+/* Общие стили и фон */
 body {
     background-color: #0f0f1a;
     color: #e0e0e0;
     font-family: 'Manrope', sans-serif;
     margin: 0;
-    overflow-x: hidden; /* Предотвращает горизонтальный скролл */
+    overflow-x: hidden;
 }
 
 .container {
@@ -15,7 +15,7 @@ body {
     z-index: 2;
 }
 
-/* --- Эффект "Аврора" на фоне --- */
+/* Эффект "Аврора" на фоне */
 .background-aurora {
     position: fixed;
     top: 0;
@@ -30,7 +30,7 @@ body {
     content: '';
     position: absolute;
     border-radius: 50%;
-    filter: blur(150px); /* Сильное размытие для мягкого свечения */
+    filter: blur(150px);
     opacity: 0.3;
 }
 
@@ -52,7 +52,7 @@ body {
     right: -250px;
 }
 
-/* --- Шапка сайта (Header) --- */
+/* Шапка сайта (Header) */
 header {
     display: flex;
     justify-content: space-between;
@@ -61,11 +61,11 @@ header {
 }
 
 .logo {
-    font-size: 3rem; /* Немного увеличим для заметности */
+    font-size: 3rem;
     font-weight: 800;
     letter-spacing: 2px;
 
-    background-image: linear-gradient(45deg, #7639bd, #9373ff, #ffffff);
+    background-image: linear-gradient(45deg, #3900f3, #9373ff, #ffffff);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -76,31 +76,31 @@ header {
 .search {
     display: flex;
     align-items: center;
-    margin-right: 30px; /* Отступ от профиля */
+    margin-right: 30px;
 }
 
 .search input[type="text"] {
-    background-color: #1E1B2E; /* Темно-фиолетовый фон */
-    border: 1px solid #4A4A6A;   /* Слегка видимая граница */
-    border-radius: 8px;          /* Скругленные углы */
-    color: #FFFFFF;              /* Белый цвет текста */
-    padding: 10px 15px;          /* Внутренние отступы */
-    font-size: 16px;             /* Размер шрифта */
-    outline: none;               /* Убираем обводку при фокусе */
-    transition: border-color 0.3s ease; /* Плавный переход для рамки */
-    width: 250px;                /* Примерная ширина */
+    background-color: #1E1B2E;
+    border: 1px solid #4A4A6A;
+    border-radius: 8px;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 250px;
 }
 
 .search input[type="text"]::placeholder {
-    color: #8A8AA0; /* Цвет плейсхолдера */
+    color: #8A8AA0;
 }
 
 .search input[type="text"]:focus {
-    border-color: #7B68EE; /* Цвет рамки при фокусе (сине-фиолетовый) */
+    border-color: #7B68EE;
 }
 
 .search-button {
-    background-color: #007BFF; /* Ярко-синий цвет кнопки */
+    background-color: #007BFF;
     color: #FFFFFF;
     border: none;
     border-radius: 8px;
@@ -108,12 +108,12 @@ header {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    margin-left: 10px; /* Отступ от поля ввода */
+    margin-left: 10px;
     transition: background-color 0.3s ease;
 }
 
 .search-button:hover {
-    background-color: #0056b3; /* Более темный синий при наведении */
+    background-color: #0056b3;
 }
 
 
@@ -126,8 +126,8 @@ header {
 .avatar {
     width: 48px;
     height: 48px;
-    background-color: #4A4A6A; /* Заглушка для аватара */
-    border-radius: 50%;       /* Круглая форма */
+    background-color: #4A4A6A;
+    border-radius: 50%;
     margin-right: 15px;
 }
 
@@ -139,10 +139,10 @@ header {
 }
 
 .profile-actions a {
-    color: #8A8AA0;             /* Сероватый цвет ссылок */
+    color: #8A8AA0;
     text-decoration: none;
     font-size: 14px;
-    margin-right: 10px;         /* Отступ между ссылками */
+    margin-right: 10px;
     transition: color 0.3s ease;
 }
 
@@ -151,7 +151,7 @@ header {
 }
 
 .profile-actions a:hover {
-    color: #FFFFFF; /* Белый цвет при наведении */
+    color: #FFFFFF;
     text-decoration: underline;
 }
 nav ul {
@@ -183,7 +183,7 @@ nav a:hover {
 }
 
 .hero-text {
-    flex: 1; /* Занимает доступное пространство */
+    flex: 1;
     max-width: 50%;
 }
 
@@ -223,10 +223,9 @@ nav a:hover {
     flex: 1;
     max-width: 50%;
     height: 450px;
-    background: rgba(255, 255, 255, 0.05); /* Легкий фон-плейсхолдер */
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Добавьте сюда свой <img> или стили для фона */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -237,22 +236,22 @@ nav a:hover {
     content: 'Image Placeholder';
 }
 
-/* --- Стили для основного контента (добавьте это в конец файла) --- */
+/* Стили для основного контента */
 
-/* --- Макет в две колонки --- */
+/* Макет в две колонки */
 .main-content {
     display: flex;
-    gap: 2rem; /* Расстояние между колонками */
+    gap: 2rem;
     padding: 2rem 0;
-    align-items: flex-start; /* Колонки начинаются с самого верха */
+    align-items: flex-start;
 }
 
 .questions-list {
-    flex: 3; /* Левая колонка занимает 3/4 доступного места */
+    flex: 3;
 }
 
 .sidebar {
-    flex: 1; /* Правая колонка (сайдбар) занимает 1/4 */
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -285,9 +284,9 @@ nav a:hover {
 }
 
 
-/* --- Стили для одного блока вопроса --- */
+/* Стили для одного блока вопроса */
 .question-item {
-    background: rgba(30, 27, 46, 0.7); /* Полупрозрачный фон */
+    background: rgba(30, 27, 46, 0.7);
     border: 1px solid #4A4A6A;
     border-radius: 12px;
     padding: 1.5rem;
@@ -307,7 +306,7 @@ nav a:hover {
     width: 64px;
     height: 64px;
     background-color: #4A4A6A;
-    border-radius: 8px; /* Как на макете - квадратный */
+    border-radius: 8px;
 }
 
 .vote-controls {
@@ -393,21 +392,6 @@ nav a:hover {
 }
 
 
-/* --- Стили для сайдбара --- */
-.sidebar-widget {
-    background: rgba(30, 27, 46, 0.7);
-    border: 1px solid #4A4A6A;
-    border-radius: 12px;
-    padding: 1.5rem;
-}
-.sidebar-widget h3 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    color: #ffffff;
-    border-bottom: 1px solid #4A4A6A;
-    padding-bottom: 0.75rem;
-}
-
 /* Облако тегов */
 .tag-cloud {
     display: flex;
@@ -447,10 +431,10 @@ nav a:hover {
     text-decoration: underline;
 }
 
-/* --- Стили для основной левой колонки и формы --- */
+/* Стили для основной левой колонки и формы */
 
 .content-column {
-    flex: 3; /* Левая колонка занимает больше места */
+    flex: 3;
 }
 
 /* Стили самой формы */
@@ -461,7 +445,7 @@ nav a:hover {
 .question-form label {
     display: block;
     font-size: 1.1rem;
-    font-weight: 400; /* Обычная жирность */
+    font-weight: 400;
     color: #e0e0e0;
     margin-bottom: 0.75rem;
 }
@@ -469,11 +453,11 @@ nav a:hover {
 .question-form input[type="text"],
 .question-form textarea {
     width: 100%;
-    background-color: #1E1B2E; /* Темно-фиолетовый фон */
-    border: 1px solid #4A4A6A;   /* Слегка видимая граница */
+    background-color: #1E1B2E;
+    border: 1px solid #4A4A6A;
     border-radius: 8px;
     color: #FFFFFF;
-    padding: 14px 18px; /* Немного увеличим отступы */
+    padding: 14px 18px;
     font-size: 1rem;
     font-family: 'Manrope', sans-serif;
     outline: none;
@@ -488,13 +472,13 @@ nav a:hover {
 
 .question-form input[type="text"]:focus,
 .question-form textarea:focus {
-    border-color: #7B68EE; /* Цвет рамки при фокусе */
-    box-shadow: 0 0 10px rgba(123, 104, 238, 0.2); /* Легкое свечение */
+    border-color: #7B68EE;
+    box-shadow: 0 0 10px rgba(123, 104, 238, 0.2);
 }
 
 .question-form textarea {
     resize: vertical;
-    min-height: 150px; /* Увеличим минимальную высоту */
+    min-height: 150px;
 }
 
 .question-form small {
@@ -508,7 +492,7 @@ nav a:hover {
     padding: 12px 35px;
     border: none;
     border-radius: 8px;
-    background-color: #007BFF; /* Чистый синий цвет */
+    background-color: #007BFF;
     color: white;
     font-size: 1.1rem;
     font-weight: 700;
@@ -518,12 +502,12 @@ nav a:hover {
 }
 
 .submit-question-button:hover {
-    background-color: #0056b3; /* Более темный синий при наведении */
+    background-color: #0056b3;
 }
 
-/* Стили для сайдбара (проверьте, что они у вас есть) */
+/* Стили для сайдбара */
 .sidebar {
-    flex: 1.2; /* Немного увеличим долю сайдбара */
+    flex: 1.2;
 }
 
 .sidebar-widget {
@@ -531,7 +515,6 @@ nav a:hover {
     border: 1px solid #4A4A6A;
     border-radius: 12px;
     padding: 1.5rem;
-    margin-bottom: 2rem;
 }
 .sidebar-widget:last-child {
     margin-bottom: 0;
@@ -541,10 +524,268 @@ nav a:hover {
     margin-bottom: 1rem;
     color: #ffffff;
     border-bottom: 1px solid #4A4A6A;
-    padding-bottom: 0.75rem;
 }
 
-/* --- Адаптивность для мобильных устройств --- */
+/* Стили для страницы входа */
+
+.login-container {
+    max-width: 500px;
+}
+
+.login-container h1 {
+    margin: 0 0 1rem 0;
+    font-size: 2.8rem;
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    background-color: rgba(255, 77, 77, 0.1);
+    border: 1px solid rgba(255, 77, 77, 0.3);
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.login-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.login-form label {
+    display: block;
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+/* Используем те же стили, что и для формы создания вопроса */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    background-color: #1E1B2E;
+    border: 1px solid #4A4A6A;
+    border-radius: 8px;
+    color: #FFFFFF;
+    padding: 14px 18px;
+    font-size: 1rem;
+    font-family: 'Manrope', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    border-color: #7B68EE;
+    box-shadow: 0 0 10px rgba(123, 104, 238, 0.2);
+}
+
+/* Контейнер для кнопки и ссылки */
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Контейнер для кнопки выбора файла */
+.file-choose-button {
+    padding: 5px 30px;
+    border: none;
+    border-radius: 8px;
+    background-color: #5220f5;;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Arial';
+    color: #ffffff;
+
+}
+.file-choose-button:hover {
+    background-color: #331cc4;
+}
+.file-input-hidden {
+    display: none;
+}
+
+/* Стилизуем кнопку (Log in) */
+.submit-button {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.create-account-link {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.create-account-link:hover {
+    text-decoration: underline;
+}
+
+/* Стили для страницы вопроса */
+
+/* Блок с полным текстом вопроса */
+.question-full-item {
+    background: rgba(30, 27, 46, 0.7);
+    border: 1px solid #4A4A6A;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.question-full-title {
+    font-size: 2.5rem;
+    color: #ffffff;
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+}
+
+.question-full-body {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #c0c0c0;
+    margin-bottom: 1.5rem;
+}
+
+/* Секция с ответами */
+.answers-section {
+    border-top: 1px solid #4A4A6A;
+    padding-top: 1.5rem;
+}
+
+.answer-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(30, 27, 46, 0.7);
+    border: 1px solid #4A4A6A;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+/* Выделение правильного ответа */
+.answer-item.correct-answer {
+    background-color: rgba(0, 123, 255, 0.1);
+    border-color: #007BFF;
+}
+
+.answer-details p {
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+/* Стилизация чекбокса "Correct" */
+.correct-marker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.correct-marker input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #007BFF;
+    cursor: pointer;
+}
+
+.correct-marker label {
+    color: #c0c0c0;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Блок аватара */
+.avatar-group { align-items: flex-start; }
+.avatar-controls {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.avatar-preview {
+    width: 300px;
+    height: 300px;
+    background-color: var(--bg-card);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+}
+.avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Форма для нового ответа */
+.new-answer-form textarea {
+    width: 100%;
+    background-color: #1E1B2E;
+    border: 1px solid #4A4A6A;
+    border-radius: 8px;
+    color: #FFFFFF;
+    padding: 14px 18px;
+    font-size: 1rem;
+    font-family: 'Manrope', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 100px;
+    margin-bottom: 1rem;
+}
+
+.new-answer-form textarea:focus {
+    border-color: #7B68EE;
+    box-shadow: 0 0 10px rgba(123, 104, 238, 0.2);
+}
+
+/* Пагинация */
+.pagination {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.pagination a, .pagination span {
+    padding: 8px 12px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+}
+.pagination a:hover {
+    background-color: rgba(30, 27, 46, 0.7);
+    text-decoration: none;
+}
+.pagination a.active {
+    background-color: var(--vk-blue);
+    color: white;
+    border-color: var(--vk-blue);
+}
+
+/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
     .hero-section {
         flex-direction: column;
