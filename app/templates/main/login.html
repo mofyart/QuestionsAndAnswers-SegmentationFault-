@@ -1,0 +1,19 @@
+{% extends 'main/Layout/base.html' %}
+
+{% block title %}Войти{% endblock %}
+
+{% block content %}
+    <div class="content-column">
+        {% include "main/Layout/header.html" with title="Log In" %}
+
+        <div class="login-container">
+            <form action="#" method="post" class="login-form">
+                {% include "main/Layout/formFilling.html" with appointment="login-username" label="Log in" name="username" placeholder="Enter your login here" %}
+                {% include "main/Layout/formFilling.html" with appointment="login-password" label="Password" name="password" placeholder="********" %}
+
+                {% url 'register' as registerUrl %}
+                {% include "main/Layout/formAction.html" with buttonBlock=True title="Log in" createAccountLink=registerUrl %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

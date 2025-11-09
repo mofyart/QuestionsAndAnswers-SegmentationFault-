@@ -1,0 +1,16 @@
+{% extends 'main/Layout/base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <div class="questions-list">
+        {% url 'index' as linkIndex %}
+        {% include "main/Layout/header.html" with title="Hot Questions" link=linkIndex linkName="New Questions" %}
+
+        {% for question in questions %}
+            {% include "main/Layout/question.html" with q=question %}
+        {% endfor %}
+
+        {% include "main/Layout/paginator.html" %}
+    </div>
+{% endblock %}

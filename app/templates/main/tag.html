@@ -1,0 +1,15 @@
+{% extends 'main/Layout/base.html' %}
+
+{% block title %}Тег{% endblock %}
+
+{% block content %}
+    <div class="questions-list">
+        {% include "main/Layout/header.html" with tagPage=True title=tag_title %}
+
+        {% for question in questions %}
+            {% include 'main/Layout/question.html' with q=question tagPage=True %}
+        {% endfor %}
+
+        {% include "main/Layout/paginator.html" %}
+    </div>
+{% endblock %}

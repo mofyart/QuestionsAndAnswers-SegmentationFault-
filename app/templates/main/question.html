@@ -1,0 +1,22 @@
+{% extends 'main/Layout/base.html' %}
+
+{% block title %}Вопрос{% endblock %}
+
+{% block content %}
+
+    <div class="questions-list">
+        {% include 'main/Layout/question.html' with q=question tags=tags %}
+
+        <div class="answers-section">
+            {% for answer in answers %}
+                {% include 'main/Layout/answer.html' with answer=answer %}
+            {% endfor %}
+        </div>
+
+        <form action="#" method="post" class="question-form">
+            {% include "main/Layout/formFilling.html" with textareaPole=True appointment="question-tags" label="Your answer" name="answer-text" rows="6" placeholder="Enter your answer here.." %}
+
+            {% include 'main/Layout/formAction.html' with buttonBlock=True title="Answer" %}
+        </form>
+    </div>
+{% endblock %}

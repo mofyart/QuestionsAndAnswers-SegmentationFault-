@@ -1,0 +1,16 @@
+<div class="form-actions">
+    {% if buttonBlock %}
+        <button type="submit" class="submit-button">{{ title }}</button>
+    {% endif %}
+
+    {% if createAccountLink %}
+        <a href="{{ createAccountLink }}" class="create-account-link">create new account</a>
+    {% endif %}
+
+    {% if avatarChoose %}
+        <label for="login-password">{{ label }}</label>
+        <label for="avatar_input" class="file-choose-button">{{ button }}</label>
+        <input type="file" id="avatar_input" name="avatar_upload" class="file-input-hidden">
+    {% endif %}
+
+</div>

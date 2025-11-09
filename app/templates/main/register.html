@@ -1,0 +1,26 @@
+{% extends 'main/Layout/base.html' %}
+
+{% block title %}Регестрация{% endblock %}
+
+{% block content %}
+    <div class="content-column">
+        {% include "main/Layout/header.html" with title="Registration" %}
+
+        <div class="login-container">
+            <form action="#" method="post" class="login-form">
+                {% include 'main/Layout/formFilling.html' with appointment="login-username" label="Login" name="username" placeholder="Enter your login here" %}
+                {% include 'main/Layout/formFilling.html' with appointment="login-email" label="Email" name="email" placeholder="Enter your Email here" %}
+
+                {% include 'main/Layout/formFilling.html' with appointment="login-nickname" label="NickName" name="nickname" placeholder="Enter your nickname here" %}
+
+                {% include 'main/Layout/formFilling.html' with appointment="login-password" label="Password" name="password" placeholder="********" %}
+
+                {% include 'main/Layout/formFilling.html' with appointment="login-password" label="Repeat Password" name="password" placeholder="********" %}
+
+                {% include 'main/Layout/formAction.html' with avatarChoose=True label="Avatar" button="Choose" %}
+
+                {% include 'main/Layout/formAction.html' with buttonBlock=True title="Register" %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

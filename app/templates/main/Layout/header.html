@@ -1,0 +1,11 @@
+<div class="questions-header">
+    {% if tagPage %}
+        <h1>Tag: {{ title }}</h1>
+    {% else %}
+        <h1>{{ title }}</h1>
+    {% endif %}
+
+    {% if link %}
+        <a href="{{ link }}">{{ linkName }}</a>
+    {% endif %}
+</div>

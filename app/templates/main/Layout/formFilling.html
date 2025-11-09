@@ -1,0 +1,13 @@
+<div class="form-group">
+    <label for="{{ appointment }}">{{ label }}</label>
+
+    {% if textareaPole %}
+        <textarea id="{{ appointment }}" name="{{ name }}" rows="{{ rows }}" placeholder="{{ placeholder }}"></textarea>
+    {% else %}
+        <input type="text" id="{{ appointment }}" name="{{ name }}" placeholder="{{ placeholder }}">
+    {% endif %}
+
+    {% if smallPole %}
+        <small>{{ inscription }}</small>
+    {% endif %}
+</div>

@@ -1,0 +1,30 @@
+<article class="question-full-item">
+    <div class="question-meta">
+        <div class="avatar-question"></div>
+        <div class="vote-controls">
+            <span>▲</span>
+            <div class="vote-count">{{ q.likes_count }}</div>
+            <span>▼</span>
+        </div>
+    </div>
+    <div class="question-details">
+        <div class="question-title">
+            <a href="{% url 'question' q.id %}">{{ q.title }}</a>
+        </div>
+        <p class="question-full-body">
+            {{ q.text }}
+        </p>
+        <div class="question-footer">
+            {% if tagPage %}
+            {% else %}
+                <div class="tags">
+                    Tags:
+
+                    {% for tag in q.tags.all %}
+                        <a href="{% url 'tag' tag.id %}" class="tag">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</article>

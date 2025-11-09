@@ -1,0 +1,20 @@
+{% extends 'main/Layout/base.html' %}
+
+{% block title %}New Question{% endblock %}
+
+{% block content %}
+    <div class="content-column">
+        {% url 'hotquestion' as linkHotQuestion %}
+        {% include "main/Layout/header.html" with title="New Questions" link=linkHotQuestion linkName="Hot Questions" %}
+
+        <form action="#" method="post" class="question-form">
+            {% include "main/Layout/formFilling.html" with appointment="question-title" label="Title" name="title" placeholder="Write text, please" %}
+
+            {% include "main/Layout/formFilling.html" with label="Text" textareaPole=True appointment="question-text" name="text" rows="8" placeholder="Really, how ? Have no idea about it" %}
+
+            {% include "main/Layout/formFilling.html" with appointment="question-tags" label="Tags" name="tags" placeholder="moon, park, puzzle" smallPole="True" inscription="Specify the tags separated by commas" %}
+
+            {% include 'main/Layout/formAction.html' with buttonBlock=True title="Create" %}
+        </form>
+    </div>
+{% endblock %}
