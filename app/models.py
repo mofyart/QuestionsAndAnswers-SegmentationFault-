@@ -40,8 +40,12 @@ class ManagerQuestion(models.Manager):
     def new(self):
         return self.get_queryset().new()
 
+class ManagerTag(models.Manager):
+    def best(self):
+        return self.annotate(count_questions=Count('questions')).order_by('-count_questions')[:9]
 class Tag(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    objects = ManagerTag()
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -72,7 +76,7 @@ class Question(models.Model):
     update_at = models.DateField(auto_now=True)
 class Answer(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.PROTECT)
-    question = models.ForeignKey(Question, on_delete=models.PROTECT, related_name='answers')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     text = models.TextField()
     is_correct = models.BooleanField(default=False, blank=True, null=True)
 

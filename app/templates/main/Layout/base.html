@@ -41,15 +41,12 @@
             <aside class="sidebar">
                 <div class="sidebar-widget">
                     <h3>Popular Tags</h3>
+
+
                     <div class="tag-cloud">
-                        <a href="#" class="tag-perl">perl</a>
-                        <a href="#" class="tag-python">python</a>
-                        <a href="#" class="tag-technopark">TechnoPark</a>
-                        <a href="#" class="tag-mysql">MySQL</a>
-                        <a href="#" class="tag-django">django</a>
-                        <a href="#" class="tag-mailru">Mail.Ru</a>
-                        <a href="#" class="tag-voloshin">Voloshin</a>
-                        <a href="#" class="tag-firefox">Firefox</a>
+                        {% for tag in best_tags %}
+                            <a href="{% url 'tag' tag.id %}" class="tag-{% cycle '1' '2' '3' '4' '5' '6' '7' '8' '9' %}">{{ tag.name }}</a>
+                        {% endfor %}
                     </div>
                 </div>
 

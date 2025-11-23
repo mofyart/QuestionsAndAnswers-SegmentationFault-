@@ -403,11 +403,12 @@ nav a:hover {
     text-decoration: none;
     font-weight: bold;
 }
-.tag-python { font-size: 1.4em; color: #ff5722; }
-.tag-django { font-size: 1.2em; color: #00c853; }
-.tag-mysql { font-size: 1.3em; color: #f44336; }
-.tag-firefox { font-size: 1.1em; color: #ff9800; }
-.tag-perl, .tag-technopark, .tag-mailru, .tag-voloshin {
+.tag-1 { font-size: 1.4em; color: #ff5722; }
+.tag-3 { font-size: 1.2em; color: #00c853; }
+.tag-5 { font-size: 1.3em; color: #f44336; }
+.tag-6 { font-size: 1.1em; color: #ff9800; }
+.tag-9 { font-size: 1.3em; color: #c10dd1; }
+.tag-2, .tag-4, .tag-7, .tag-8 {
     color: #c0c0c0;
 }
 .tag-cloud a:hover {

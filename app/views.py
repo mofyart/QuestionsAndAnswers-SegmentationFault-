@@ -4,7 +4,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from app.models import Question, Answer, Tag
 
-
 def paginate(request, objects, per_page=5):
     page_num = request.GET.get('page', 1)
     paginator = Paginator(objects, per_page)
