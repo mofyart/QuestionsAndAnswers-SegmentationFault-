@@ -6,12 +6,14 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from app.models import Profile, Tag, Question, Answer, Like
 
-BASE_USERS = 100
+
+BASE_USERS = 10
 BASE_TAGS = 100
-BASE_QUESTIONS = 1000
-BASE_ANSWERS = 10000
-BASE_LIKES = 20000
-BATCH_SIZE = 10000
+BASE_QUESTIONS = 10
+BASE_ANSWERS = 10
+BASE_LIKES = 2000
+BATCH_SIZE = 10
+
 
 class Command(BaseCommand):
     help = 'Fills the database with test data based on a given ratio.'
@@ -42,7 +44,18 @@ class Command(BaseCommand):
 
         new_users = User.objects.bulk_create(users_to_create, BATCH_SIZE)
 
-        profiles_to_create = [Profile(user=user) for user in new_users]
+        # --- ИЗМЕНЕНИЯ ЗДЕСЬ ---
+        # Добавляем nickname и avatar.
+        # Предполагаем, что у тебя есть 5 картинок: 1.jpg, 2.jpg ... 5.jpg
+        profiles_to_create = [
+            Profile(
+                user=user,
+                nickname=faker.user_name(),  # Генерируем никнейм
+                avatar=f'profile_pics/{random.randint(1, 5)}.jpg'  # Выбираем случайную картинку
+            ) for user in new_users
+        ]
+        # -----------------------
+
         _ = Profile.objects.bulk_create(profiles_to_create, BATCH_SIZE)
 
         profile_ids = list(Profile.objects.values_list('id', flat=True))

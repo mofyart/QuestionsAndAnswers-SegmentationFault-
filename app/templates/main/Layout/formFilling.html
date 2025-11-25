@@ -2,9 +2,19 @@
     <label for="{{ appointment }}">{{ label }}</label>
 
     {% if textareaPole %}
-        <textarea id="{{ appointment }}" name="{{ name }}" rows="{{ rows }}" placeholder="{{ placeholder }}"></textarea>
+        <textarea
+        id="{{ appointment }}"
+        name="{{ name }}"
+        rows="{{ rows }}"
+        placeholder="{{ placeholder }}"
+        value="{{ value|default:'' }}"></textarea>
     {% else %}
-        <input type="text" id="{{ appointment }}" name="{{ name }}" placeholder="{{ placeholder }}">
+        <input
+        type="{{ type|default:'text' }}"
+        id="{{ appointment }}"
+        name="{{ name }}"
+        placeholder="{{ placeholder }}"
+        value="{{ value|default:'' }}">
     {% endif %}
 
     {% if smallPole %}

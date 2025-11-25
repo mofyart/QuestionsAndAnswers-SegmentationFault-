@@ -432,6 +432,84 @@ nav a:hover {
     text-decoration: underline;
 }
 
+.avatar-upload-container {
+    display: flex;
+    align-items: center; /* Выравниваем все по вертикали */
+    gap: 15px; /* Отступы между элементами */
+    margin-bottom: 20px;
+}
+
+.avatar-label {
+    color: white;
+    font-size: 1rem;
+    margin: 0; /* Убираем лишние отступы */
+}
+
+.file-choose-button {
+    background-color: #6f42c1; /* Фиолетовый цвет как на скрине */
+    color: white;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.file-choose-button:hover {
+    background-color: #5a32a3;
+}
+
+.file-name-text {
+    color: #f0f0f1; /* Серый цвет текста для имени файла */
+    font-size: 1.1rem;
+    white-space: nowrap; /* Чтобы длинное имя не переносилось */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Троеточие, если имя очень длинное */
+    max-width: 200px;
+    margin-bottom: 0.75rem;
+}
+
+.file-input-hidden {
+    display: none; /* Скрываем стандартный инпут */
+}
+
+
+
+/* Контейнер для всех сообщений */
+.messages {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Стили для каждого отдельного сообщения */
+.alert {
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Специфичные стили для ошибок (обычно тег 'error') */
+.alert-error {
+    font-size: 1.4em;
+    color: #ff5722;
+}
+
+/* На случай успешных сообщений (success) */
+.alert-success {
+    font-size: 1.4em;
+    color: #3fb950;
+}
+
+/* На случай информационных сообщений (info) */
+.alert.info {
+    font-size: 1.4em;
+    color: #58a6ff;
+}
+
 /* Стили для основной левой колонки и формы */
 
 .content-column {

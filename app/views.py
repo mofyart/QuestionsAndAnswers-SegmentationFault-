@@ -1,8 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 
-from app.models import Question, Answer, Tag
+
+from app.forms import LoginForm, RegisterForm
+from app.models import Profile, Question, Answer, Tag
 
 def paginate(request, objects, per_page=5):
     page_num = request.GET.get('page', 1)
@@ -66,10 +70,48 @@ def readSettings(request):
     return render(request, 'settings.html')
 
 def logIn(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            user = form.get_user()
+
+            if user:
+                login(request, user)
+                return redirect('index')
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', {'form': form})
 
 def registrate(request):
-    return render(request, 'register.html')
+    if request.method == 'POST':
+        form = RegisterForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            data = form.cleaned_data
+
+            user = User.objects.create_user(
+                username=data['username'],
+                email=data['email'],
+                password=data['password']
+            )
+
+            profile = Profile.objects.create(
+                user=user,
+                nick_name=data['nick_name']
+            )
+
+            if data['avatar']:
+                profile.avatar = data['avatar']
+                profile.save()
+
+            login(request, user)
+            return redirect('index')
+    else:
+        form = RegisterForm()
+
+    return render(request, 'register.html', {'form': form})
 
 def hotQuestion(request):
     hot_questions = Question.objects.best().prefetch_related('tags')

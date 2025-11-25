@@ -5,11 +5,26 @@
 {% block content %}
     <div class="content-column">
         {% include "main/Layout/header.html" with title="Log In" %}
+        {% if form.errors %}
+        <div class="messages">
+            {% for error in form.non_field_errors %}
+                <div class="alert-error">{{ error }}</div>
+            {% endfor %}
+
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert-error">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <div class="login-container">
-            <form action="#" method="post" class="login-form">
-                {% include "main/Layout/formFilling.html" with appointment="login-username" label="Log in" name="username" placeholder="Enter your login here" %}
-                {% include "main/Layout/formFilling.html" with appointment="login-password" label="Password" name="password" placeholder="********" %}
+            <form action="" method="post" class="login-form">
+                {% csrf_token %}
+
+                {% include "main/Layout/formFilling.html" with appointment="login-username" label="Log in" name="username" placeholder="Enter your login here" value=form.username.value %}
+                {% include "main/Layout/formFilling.html" with appointment="login-password" label="Password" name="password" placeholder="********" type="password" %}
 
                 {% url 'register' as registerUrl %}
                 {% include "main/Layout/formAction.html" with buttonBlock=True title="Log in" createAccountLink=registerUrl %}

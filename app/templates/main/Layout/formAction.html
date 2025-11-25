@@ -8,9 +8,21 @@
     {% endif %}
 
     {% if avatarChoose %}
-        <label for="login-password">{{ label }}</label>
-        <label for="avatar_input" class="file-choose-button">{{ button }}</label>
-        <input type="file" id="avatar_input" name="avatar_upload" class="file-input-hidden">
+        <div class="avatar-upload-container">
+            <label for="login-password" class="avatar-label">{{ label }}</label>
+
+            <label for="avatar_input" class="file-choose-button">{{ button }}</label>
+
+            <span id="file-name" class="file-name-text">No file chosen</span>
+
+            <input
+                type="file"
+                id="avatar_input"
+                name="avatar"
+                class="file-input-hidden"
+                onchange="document.getElementById('file-name').textContent = this.files[0].name"
+            >
+        </div>
     {% endif %}
 
 </div>
