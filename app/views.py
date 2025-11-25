@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 
 
@@ -83,6 +83,11 @@ def logIn(request):
         form = LoginForm()
 
     return render(request, 'login.html', {'form': form})
+
+def logOut(request):
+    logout(request)
+
+    return redirect('index')
 
 def registrate(request):
     if request.method == 'POST':

@@ -117,7 +117,7 @@ header {
 }
 
 
-/* Стили для профиля */
+/* Стили для профиля
 .profile {
     display: flex;
     align-items: center;
@@ -153,7 +153,7 @@ header {
 .profile-actions a:hover {
     color: #FFFFFF;
     text-decoration: underline;
-}
+} */
 nav ul {
     list-style: none;
     display: flex;
@@ -438,6 +438,50 @@ nav a:hover {
     gap: 15px; /* Отступы между элементами */
     margin-bottom: 20px;
 }
+/* Контейнер профиля */
+.profile {
+    display: flex;           /* Выстраиваем всё в ряд */
+    align-items: center;     /* Центрируем по вертикали */
+    gap: 15px;               /* Отступ между аватаркой и ссылками */
+}
+
+/* Ограничитель для аватарки */
+.avatar-box {
+    width: 45px;            /* Жесткая ширина */
+    height: 45px;           /* Жесткая высота */
+    flex-shrink: 0;         /* Запрещаем сжиматься */
+    border-radius: 50%;     /* Делаем круглым */
+    overflow: hidden;       /* Обрезаем картинку по кругу */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Опционально: легкая рамка */
+}
+
+/* Сама картинка внутри */
+.avatar-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* Картинка заполнит круг, не искажаясь */
+    display: block;         /* Убираем нижний отступ */
+}
+
+/* Блок ссылок */
+.profile-actions {
+    display: flex;
+    flex-direction: column; /* Ссылки друг под другом (как на макете) */
+    gap: 4px;               /* Расстояние между ссылками */
+}
+
+/* Сами ссылки */
+.profile-actions a {
+    color: #a5a5a5;         /* Серый цвет текста */
+    text-decoration: none;  /* Убираем подчеркивание */
+    font-size: 14px;        /* Размер шрифта */
+    transition: color 0.2s;
+}
+
+.profile-actions a:hover {
+    color: #ffffff;         /* Белый при наведении */
+}
+
 
 .avatar-label {
     color: white;
@@ -816,30 +860,32 @@ nav a:hover {
     cursor: pointer;
 }
 
-/* Блок аватара */
-.avatar-group { align-items: flex-start; }
-.avatar-controls {
-    display: flex;
-    gap: 15px;
-    width: 100%;
+/* Основной контейнер профиля в шапке */
+.profile {
+    display: flex;              /* Выстраиваем элементы в ряд */
+    align-items: center;        /* Центрируем по вертикали */
+    gap: 15px;                  /* Отступы между именем, фото и ссылками */
 }
 
-.avatar-preview {
-    width: 300px;
-    height: 300px;
-    background-color: var(--bg-card);
-    border: 1px dashed var(--border-color);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
+/* Стиль для имени пользователя */
+.profile-name {
+    font-weight: bold;          /* Жирный шрифт */
+    color: var(--text-main, #fff); /* Цвет текста (подставьте свой) */
+    font-size: 16px;
 }
-.avatar-preview img {
-    width: 100%;
-    height: 100%;
+
+/* Убедимся, что аватар не слишком большой для шапки */
+.avatar-box img {
+    border-radius: 50%;        /* Круглая форма */
     object-fit: cover;
-    border-radius: 8px;
+    display: block;
+}
+
+/* Ссылки справа (settings/logout) */
+.profile-actions {
+    display: flex;
+    flex-direction: column;    /* Если нужно, чтобы они были друг под другом */
+    font-size: 12px;
 }
 
 /* Форма для нового ответа */

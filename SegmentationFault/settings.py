@@ -22,9 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'app/static/media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -60,7 +57,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.auth.context_processors.auth'
 ]
 
 ROOT_URLCONF = 'SegmentationFault.urls'
@@ -75,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.contrib.auth.context_processors.auth',
+
                 'app.context_processors.get_best_tags'
             ],
         },
@@ -132,6 +130,19 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
       BASE_DIR / 'app/static/main'
 ]
+
+
+MEDIA_URL = '/media/'
+
+MEDIA_DIRS = [
+      BASE_DIR / 'app/media/'
+]
+
+MEDIA_ROOT = BASE_DIR / 'app/media'
+
+
+
+
 
 
 # Default primary key field type

@@ -22,17 +22,35 @@
             </div>
             <div class="search">
                 <input type="text" name="search" placeholder="Search">
-                <button class="search-button">ASK</button>
+
+                {% if user.is_authenticated %}
+                    <button class="search-button">ASK</button>
+                {% endif %}
             </div>
             <div class="profile">
-                <div class="avatar"></div>
-                <div class="profile-info">
-                    <p>Artem</p>
-                    <div class="profile-actions">
-                        <a href="{% url 'settings' %}">settings</a>
-                        <a href="{% url 'login' %}">log out</a>
+               {% if user.is_authenticated %}
+                    <div class="profile-name">
+                        {{ user.profile.nick_name }}
                     </div>
-                </div>
+
+                    <div class="avatar-box">
+                        <img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.nick_name }}">
+                    </div>
+
+                    <div class="profile-info">
+                        <div class="profile-actions">
+                            <a href="{% url 'settings' %}">settings</a>
+                            <a href="{% url 'logout' %}">log out</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="profile-info">
+                        <div class="profile-actions">
+                            <a href="{% url 'login' %}">log in</a>
+                            <a href="{% url 'register' %}">create account</a>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </header>
         <main class="main-content">
