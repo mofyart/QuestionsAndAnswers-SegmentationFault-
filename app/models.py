@@ -97,8 +97,3 @@ class Answer(models.Model):
 
     created_at = models.DateField(auto_now_add=True)
     update_at = models.DateField(auto_now=True)
-
-    def get_absolute_url(self):
-        base_url = self.question.get_absolute_url()
-
-        return f"{base_url}?page=1#answer-{self.pk}"

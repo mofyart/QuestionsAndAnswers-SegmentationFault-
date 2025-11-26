@@ -31,9 +31,10 @@
         <form action="{% url 'question' question.id %}" method="post" class="question-form">
             {% csrf_token %}
 
-            {% include "main/Layout/formFilling.html" with textareaPole=True appointment="question-tags" label="Your answer" name="text" rows="6" placeholder="Enter your answer here.." value=form.text.value%}
-
-            {% include 'main/Layout/formAction.html' with buttonBlock=True title="Answer" %}
+            {% if user.is_authenticated %}
+                {% include "main/Layout/formFilling.html" with textareaPole=True appointment="question-tags" label="Your answer" name="text" rows="6" placeholder="Enter your answer here.." value=form.text.value %}
+                {% include 'main/Layout/formAction.html' with buttonBlock=True title="Answer" %}
+            {% endif %}
         </form>
 
         {% include "main/Layout/paginator.html" %}
