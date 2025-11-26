@@ -24,6 +24,8 @@
 
         <div class="login-container">
             <form action="#" method="post" class="login-form" enctype="multipart/form-data">
+                {% csrf_token %}
+
                 {% include "main/Layout/formFilling.html" with appointment="login-username" label="Log in" name="username" placeholder="Enter your new login here" value=form.username.value %}
 
                 {% include 'main/Layout/formFilling.html' with appointment="login-email" label="Email" name="email" placeholder="Enter your new Email here" value=form.email.value %}

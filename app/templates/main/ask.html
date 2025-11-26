@@ -3,16 +3,33 @@
 {% block title %}New Question{% endblock %}
 
 {% block content %}
+
     <div class="content-column">
         {% url 'hotquestion' as linkHotQuestion %}
         {% include "main/Layout/header.html" with title="New Questions" link=linkHotQuestion linkName="Hot Questions" %}
 
+        {% if form.errors %}
+        <div class="messages">
+            {% for error in form.non_field_errors %}
+                <div class="alert-error">{{ error }}</div>
+            {% endfor %}
+
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert-error">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
         <form action="#" method="post" class="question-form">
-            {% include "main/Layout/formFilling.html" with appointment="question-title" label="Title" name="title" placeholder="Write text, please" %}
+            {% csrf_token %}
 
-            {% include "main/Layout/formFilling.html" with label="Text" textareaPole=True appointment="question-text" name="text" rows="8" placeholder="Really, how ? Have no idea about it" %}
+            {% include "main/Layout/formFilling.html" with appointment="question-title" label="Title" name="title" placeholder="Write text, please" value=form.title.value %}
 
-            {% include "main/Layout/formFilling.html" with appointment="question-tags" label="Tags" name="tags" placeholder="moon, park, puzzle" smallPole="True" inscription="Specify the tags separated by commas" %}
+            {% include "main/Layout/formFilling.html" with label="Text" textareaPole=True appointment="question-text" name="text" rows="8" placeholder="Really, how ? Have no idea about it" value=form.text.value %}
+
+            {% include "main/Layout/formFilling.html" with appointment="question-tags" label="Tags" name="tags" placeholder="moon, park, puzzle" smallPole="True" inscription="Specify the tags separated by commas" value=form.tags.value %}
 
             {% include 'main/Layout/formAction.html' with buttonBlock=True title="Create" %}
         </form>

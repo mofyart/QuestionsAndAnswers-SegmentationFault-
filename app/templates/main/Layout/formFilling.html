@@ -7,7 +7,7 @@
         name="{{ name }}"
         rows="{{ rows }}"
         placeholder="{{ placeholder }}"
-        value="{{ value|default:'' }}"></textarea>
+        >{{ value|default:'' }}</textarea>
     {% else %}
         <input
         type="{{ type|default:'text' }}"

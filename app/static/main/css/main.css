@@ -305,8 +305,17 @@ nav a:hover {
 .avatar-question {
     width: 64px;
     height: 64px;
-    background-color: #4A4A6A;
+    flex-shrink: 0;
     border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Сама картинка внутри */
+.avatar-question img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* Картинка заполнит круг, не искажаясь */
+    display: block;         /* Убираем нижний отступ */
 }
 
 .vote-controls {
@@ -875,12 +884,6 @@ nav a:hover {
     font-size: 16px;
 }
 
-/* Убедимся, что аватар не слишком большой для шапки */
-.avatar-box img {
-    border-radius: 50%;        /* Круглая форма */
-    object-fit: cover;
-    display: block;
-}
 
 /* Ссылки справа (settings/logout) */
 .profile-actions {

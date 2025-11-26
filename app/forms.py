@@ -36,11 +36,11 @@ class LoginForm(forms.Form):
         return getattr(self, 'user_info', None)
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(max_length=100, label="Username")
+    username = forms.CharField(min_length=4, max_length=100, label="Username")
     email = forms.EmailField(label="Email")
-    nick_name = forms.CharField(max_length=100, label="NickName")
-    password = forms.CharField(widget=forms.PasswordInput, label="Password")
-    repeat_password = forms.CharField(widget=forms.PasswordInput, label="Repeat Password")
+    nick_name = forms.CharField(min_length=4, max_length=100, label="NickName")
+    password = forms.CharField(min_length=8, widget=forms.PasswordInput, label="Password")
+    repeat_password = forms.CharField(min_length=8, widget=forms.PasswordInput, label="Repeat Password")
     avatar = forms.ImageField(required=False, label="Avatar")
 
     def clean_username(self):
@@ -95,6 +95,9 @@ class SettingsForm(forms.Form):
     def clean_username(self):
         username = self.cleaned_data.get('username')
 
+        if username.lower() == 'admin':
+            raise forms.ValidationError("Login with name 'admin' is prohibited.")
+
         if User.objects.filter(username=username).exclude(pk=self.user.pk).exists():
             raise forms.ValidationError("User with this login already exists")
         return username
@@ -114,3 +117,35 @@ class SettingsForm(forms.Form):
             raise forms.ValidationError("User with this nick name already exists")
 
         return nick_name
+
+class QuestionForm(forms.Form):
+    title = forms.CharField(max_length=100, label="Title")
+    text = forms.CharField(required=False ,label="Text")
+    tags = forms.CharField(required=False, label="Tags")
+
+    def clean_tags(self):
+        tags_str = self.cleaned_data.get('tags')
+
+        if not tags_str:
+            return []
+
+        tags_list = [tag.strip() for tag in tags_str.split(',') if tag.strip()]
+
+        tags_list = list(set(tags_list))
+
+        for tag in tags_list:
+            if len(tag) > 20:
+                raise forms.ValidationError(f"Tag '{tag}' is too long (max 20 chars)")
+
+        return tags_list
+
+class AnswerForm(forms.Form):
+    text = forms.CharField(label="Text")
+
+    def clean_text(self):
+        text = self.cleaned_data.get('text')
+
+        if len(text) < 10:
+            raise forms.ValidationError("Your answer is too small (min 10 chars)")
+
+        return text

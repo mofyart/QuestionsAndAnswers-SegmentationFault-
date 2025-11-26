@@ -5,6 +5,21 @@
 {% block content %}
 
     <div class="questions-list">
+
+        {% if form.errors %}
+        <div class="messages">
+            {% for error in form.non_field_errors %}
+                <div class="alert-error">{{ error }}</div>
+            {% endfor %}
+
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert-error">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
         {% include 'main/Layout/question.html' with q=question tags=tags %}
 
         <div class="answers-section">
@@ -13,10 +28,14 @@
             {% endfor %}
         </div>
 
-        <form action="#" method="post" class="question-form">
-            {% include "main/Layout/formFilling.html" with textareaPole=True appointment="question-tags" label="Your answer" name="answer-text" rows="6" placeholder="Enter your answer here.." %}
+        <form action="{% url 'question' question.id %}" method="post" class="question-form">
+            {% csrf_token %}
+
+            {% include "main/Layout/formFilling.html" with textareaPole=True appointment="question-tags" label="Your answer" name="text" rows="6" placeholder="Enter your answer here.." value=form.text.value%}
 
             {% include 'main/Layout/formAction.html' with buttonBlock=True title="Answer" %}
         </form>
+
+        {% include "main/Layout/paginator.html" %}
     </div>
 {% endblock %}

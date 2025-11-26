@@ -1,8 +1,15 @@
-<article class="answer-item correct-answer">
+{% load static %}
+
+<article class="answer-item correct-answer" id="answer-{{ answer.id }}">
     <div class="question-meta">
         <div class="avatar-question">
-            <img src="{{ answer.user.profile.avatar.url }}" alt="Avatar" style="width: 50px; height: 50px;">
+            {% if answer.user.avatar %}
+                <img src="{{ answer.user.avatar.url }}">
+            {% else %}
+                <img src="{% static 'main/default.jpg' %}">
+            {% endif %}
         </div>
+
         <div class="vote-controls">
             <span>▲</span>
             <div class="vote-count">{{ answer.likes_count }}</div>

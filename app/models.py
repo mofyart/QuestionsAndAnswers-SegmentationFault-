@@ -3,6 +3,7 @@ from django.db.models import Count
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.urls import reverse
 
 class AnswerQuerySet(models.QuerySet):
     def add_likes(self):
@@ -11,12 +12,18 @@ class AnswerQuerySet(models.QuerySet):
     def best(self):
         return self.add_likes().order_by('-likes_count')
 
+    def new(self):
+        return self.add_likes().order_by('-created_at')
+
 class ManagerAnswer(models.Manager):
     def get_queryset(self):
         return AnswerQuerySet(self.model, using=self._db)
 
     def best(self):
         return self.get_queryset().best()
+
+    def new(self):
+        return self.get_queryset().new()
 
 class QuestionQuerySet(models.QuerySet):
     def add_likes(self):
@@ -75,6 +82,9 @@ class Question(models.Model):
 
     created_at = models.DateField(auto_now_add=True)
     update_at = models.DateField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('question', kwargs={'question_id': self.pk})
 class Answer(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.PROTECT)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
@@ -87,3 +97,8 @@ class Answer(models.Model):
 
     created_at = models.DateField(auto_now_add=True)
     update_at = models.DateField(auto_now=True)
+
+    def get_absolute_url(self):
+        base_url = self.question.get_absolute_url()
+
+        return f"{base_url}?page=1#answer-{self.pk}"

@@ -3,9 +3,10 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
-from app.forms import LoginForm, RegisterForm, SettingsForm
+from app.forms import AnswerForm, QuestionForm, LoginForm, RegisterForm, SettingsForm
 from app.models import Profile, Question, Answer, Tag
 
 def paginate(request, objects, per_page=5):
@@ -33,23 +34,75 @@ def index(request):
     })
 
 def newQuestion(request):
-    return render(request, 'ask.html')
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+
+            question = Question.objects.create(
+                title=data['title'],
+                text=data['text'],
+                user=request.user.profile,
+            )
+
+            tags_list = data['tags']
+
+            for tag in tags_list:
+                tag_obj, _ = Tag.objects.get_or_create(name=tag)
+                question.tags.add(tag_obj)
+
+            return redirect(question)
+    else:
+        form = QuestionForm()
+
+    return render(request, 'ask.html', {'form': form})
 
 def newAnswer(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+
+            answer = Answer.objects.create(
+                text=data['text'],
+                user=request.user.profile,
+                question=question
+            )
+
+            all_answers_count = question.answers.count()
+            page_size = 5
+
+            last_page = (all_answers_count + page_size - 1) // page_size
+
+            if last_page < 1: last_page = 1
+
+            question_url = reverse('question', kwargs={'question_id': question.pk})
+
+            redirect_url = f"{question_url}?page={last_page}#answer-{answer.id}"
+
+            return redirect(redirect_url)
+    else:
+        form = AnswerForm()
+
     query_set = Question.objects.add_likes()
 
-    question = get_object_or_404(query_set, pk=question_id)
+    question_for_render = get_object_or_404(query_set, pk=question_id)
 
-    answers = question.answers.best()
+    answers = question_for_render.answers.new()
 
-    tags = question.tags.all()
+    tags = question_for_render.tags.all()
 
     page = paginate(request, answers)
 
     return render(request, 'question.html', context={
+        'form': form,
         'answers': page.object_list,
         'page_obj': page,
-        'question': question,
+        'question': question_for_render,
         'tags' : tags
     })
 

@@ -24,7 +24,9 @@
                 <input type="text" name="search" placeholder="Search">
 
                 {% if user.is_authenticated %}
-                    <button class="search-button">ASK</button>
+                    <a href="{% url 'ask' %}">
+                        <button class="search-button">ASK</button>
+                    </a>
                 {% endif %}
             </div>
             <div class="profile">
