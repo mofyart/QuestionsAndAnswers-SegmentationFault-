@@ -34,7 +34,11 @@
                     </div>
 
                     <div class="avatar-box">
-                        <img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.nick_name }}">
+                        {% if user.profile.avatar %}
+                            <img src="{{ user.profile.avatar.url }}">
+                        {% else %}
+                            <img src="{% static 'main/default.jpg' %}">
+                        {% endif %}
                     </div>
 
                     <div class="profile-info">
@@ -44,6 +48,10 @@
                         </div>
                     </div>
                 {% else %}
+                    <div class="avatar-box">
+                        <img src="{% static 'main/default.jpg' %}" >
+                    </div>
+
                     <div class="profile-info">
                         <div class="profile-actions">
                             <a href="{% url 'login' %}">log in</a>

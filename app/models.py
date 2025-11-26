@@ -50,7 +50,7 @@ class Tag(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nick_name = models.CharField(max_length=100, unique=True)
-    avatar = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    avatar = models.ImageField(upload_to='profile_pics', null=True, blank=True)
 
 class Like(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.PROTECT)

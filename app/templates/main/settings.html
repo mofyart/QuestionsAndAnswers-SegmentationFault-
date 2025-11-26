@@ -1,28 +1,56 @@
 {% extends 'main/Layout/base.html' %}
 
+{% load static %}
+
 {% block title %}Настройка аккаунта{% endblock %}
 
 {% block content %}
     <div class="content-column">
-        {% include "main/Layout/header.html" with title="Settings: Artem" %}
+        {% include "main/Layout/header.html" with title="Settings: "|add:user.profile.nick_name%}
+
+         {% if form.errors %}
+        <div class="messages">
+            {% for error in form.non_field_errors %}
+                <div class="alert-error">{{ error }}</div>
+            {% endfor %}
+
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert-error">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <div class="login-container">
-            <form action="#" method="post" class="login-form">
-                {% include "main/Layout/formFilling.html" with appointment="login-username" label="Log in" name="username" placeholder="Enter your login here" %}
+            <form action="#" method="post" class="login-form" enctype="multipart/form-data">
+                {% include "main/Layout/formFilling.html" with appointment="login-username" label="Log in" name="username" placeholder="Enter your new login here" value=form.username.value %}
 
-                {% include 'main/Layout/formFilling.html' with appointment="login-email" label="Email" name="email" placeholder="Enter your Email here" %}
+                {% include 'main/Layout/formFilling.html' with appointment="login-email" label="Email" name="email" placeholder="Enter your new Email here" value=form.email.value %}
 
-                {% include 'main/Layout/formFilling.html' with appointment="login-nickname" label="NickName" name="nickname" placeholder="Enter your nickname here" %}
+                {% include 'main/Layout/formFilling.html' with appointment="login-nickname" label="NickName" name="nick_name" placeholder="Enter your new nickname here" value=form.nick_name.value %}
+
 
                 <div class="form-group avatar-group">
                     <div class="form-actions">
                             <label>Upload avatar</label>
                             <label for="avatar_input" class="file-choose-button">Choose</label>
-                            <input type="file" id="avatar_input" name="avatar_upload" class="file-input-hidden">
+                            <span id="file-name" class="file-name-text">No file chosen</span>
+                            <input
+                                type="file"
+                                id="avatar_input"
+                                name="avatar"
+                                class="file-input-hidden"
+                                onchange="document.getElementById('file-name').textContent = this.files[0].name"
+                            >
                         </div>
                     <div class="avatar-controls">
                         <div class="avatar-preview">
-                            <img src="https://i.pravatar.cc/100" alt="Current Avatar">
+                            {% if user.profile.avatar %}
+                                <img src="{{ user.profile.avatar.url }}">
+                            {% else %}
+                                <img src="{% static 'main/default.jpg' %}">
+                            {% endif %}
                         </div>
                     </div>
                 </div>

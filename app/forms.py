@@ -6,7 +6,7 @@ from app.models import Profile
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100, label="Username")
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput, label="Password")
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -80,3 +80,37 @@ class RegisterForm(forms.Form):
 
         if password != repeat_password:
             raise forms.ValidationError("Passwords do not match")
+
+
+class SettingsForm(forms.Form):
+    username = forms.CharField(required=False, max_length=100, label="Username")
+    email = forms.EmailField(required=False, label="Email")
+    nick_name = forms.CharField(required=False, max_length=100, label="NickName")
+    avatar = forms.ImageField(required=False,label="Avatar")
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+
+        if User.objects.filter(username=username).exclude(pk=self.user.pk).exists():
+            raise forms.ValidationError("User with this login already exists")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        if User.objects.filter(email=email).exclude(pk=self.user.pk).exists():
+            raise forms.ValidationError("User with this email already exists")
+
+        return email
+
+    def clean_nick_name(self):
+        nick_name = self.cleaned_data.get('nick_name')
+
+        if Profile.objects.filter(nick_name=nick_name).exclude(user=self.user).exists():
+            raise forms.ValidationError("User with this nick name already exists")
+
+        return nick_name

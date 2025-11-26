@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 
 
-from app.forms import LoginForm, RegisterForm
+from app.forms import LoginForm, RegisterForm, SettingsForm
 from app.models import Profile, Question, Answer, Tag
 
 def paginate(request, objects, per_page=5):
@@ -67,7 +67,39 @@ def readTag(request, tag_id):
     })
 
 def readSettings(request):
-    return render(request, 'settings.html')
+    user = request.user
+    if request.method == 'POST':
+        form = SettingsForm(request.POST,request.FILES, user=request.user)
+
+        if form.is_valid():
+            data = form.cleaned_data
+
+            if data['username']:
+                user.username = data['username']
+
+            if data['email']:
+                user.email = data['email']
+
+            user.save()
+
+            if data['nick_name']:
+                user.profile.nick_name = data['nick_name']
+
+            if data['avatar']:
+                user.profile.avatar = data['avatar']
+
+            user.profile.save()
+
+            return redirect('settings')
+    else:
+        initial_data = {
+            'username': user.username,
+            'email': user.email,
+            'nick_name': user.profile.nick_name,
+        }
+
+        form = SettingsForm(initial=initial_data)
+    return render(request, 'settings.html', {'form': form})
 
 def logIn(request):
     if request.method == 'POST':
