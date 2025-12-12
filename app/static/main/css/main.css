@@ -318,30 +318,82 @@ nav a:hover {
     display: block;         /* Убираем нижний отступ */
 }
 
+/* Общий контейнер */
 .vote-controls {
     display: flex;
     flex-direction: column;
+    align-items: center;    /* Центрирует кнопки и текст по горизонтали */
+    justify-content: center;
+    gap: 8px;               /* Отступ между кнопками и цифрой */
+
+    /* Убираем рамку контейнера, если она вам не нужна, или делаем её тонкой */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 16px;    /* Скругление всего блока */
+    background: rgba(0, 0, 0, 0.2); /* Легкая подложка под весь блок */
+    width: fit-content;     /* Ширина по содержимому */
+}
+
+/* Стиль самой кнопки */
+.js-vote-btn {
+    /* РАЗМЕР И ФОРМА */
+    width: 40px;            /* Фиксированная ширина */
+    height: 40px;           /* Фиксированная высота = квадрат */
+    border-radius: 10px;    /* Мягкое скругление углов квадрата */
+    border: none;           /* Убираем стандартные рамки */
+
+    /* ЦЕНТРИРОВАНИЕ ИКОНКИ (Самое важное) */
+    display: flex;
     align-items: center;
-    background-color: #1E1B2E;
-    border: 1px solid #4A4A6A;
-    border-radius: 8px;
-    padding: 5px;
-    font-weight: bold;
-    color: #c0c0c0;
-}
-.vote-controls span {
+    justify-content: center;
+    padding: 0;             /* Убираем внутренние отступы, чтобы не сдвигало */
+
+    /* ЦВЕТА */
+    background-color: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый фон */
+    color: #cbd5e1;         /* Светло-серый цвет стрелки */
     cursor: pointer;
-    padding: 0 5px;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
+    transition: all 0.2s ease;
 }
-.vote-controls span:hover {
-    color: #fff;
+
+/* Убираем лишние отступы у SVG внутри кнопки */
+.js-vote-btn svg {
+    display: block; /* Убирает нижний отступ, характерный для inline элементов */
 }
+
+/* Ховер эффекты (наведение мышкой) */
+.js-vote-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Кнопка становится светлее */
+    color: #ffffff; /* Стрелка становится белой */
+    transform: translateY(-2px); /* Легкое всплытие */
+}
+
+/* Активные цвета (опционально) */
+.js-vote-btn.upvote:hover {
+    background-color: rgba(16, 185, 129, 0.2); /* Зеленоватый фон */
+    color: #34d399; /* Зеленая стрелка */
+}
+
+.js-vote-btn.downvote:hover {
+    background-color: rgba(239, 68, 68, 0.2); /* Красноватый фон */
+    color: #f87171; /* Красная стрелка */
+}
+
+.js-vote-btn.upvote.active {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #34d399; /* Зеленый */
+}
+
+.js-vote-btn.downvote.active {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #f87171; /* Красный */
+}
+
+/* Цифра рейтинга */
 .vote-count {
-    font-size: 1.2rem;
+    font-weight: 700;
+    font-size: 16px;
     color: #fff;
-    padding: 5px 0;
+    line-height: 1; /* Чтобы цифра не занимала лишнюю высоту */
 }
 
 

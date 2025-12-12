@@ -73,7 +73,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.contrib.auth.context_processors.auth',
 
-                'app.context_processors.get_best_tags'
+                'app.context_processors.get_best_tags',
+                'app.context_processors.get_best_users',
             ],
         },
     },
@@ -139,8 +140,6 @@ MEDIA_DIRS = [
 ]
 
 MEDIA_ROOT = BASE_DIR / 'app/media'
-
-
 
 
 

@@ -1,13 +1,19 @@
+import json
+from django.db.models import Sum
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.contenttypes.models import ContentType
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 
 from app.forms import AnswerForm, QuestionForm, LoginForm, RegisterForm, SettingsForm
-from app.models import Profile, Question, Answer, Tag
+from app.models import Like, Profile, Question, Answer, Tag
 
 def paginate(request, objects, per_page=5):
     page_num = request.GET.get('page', 1)
@@ -23,7 +29,7 @@ def paginate(request, objects, per_page=5):
 
 
 def index(request):
-    all_questions = Question.objects.new().prefetch_related('tags')
+    all_questions = Question.objects.new().prefetch_related('tags').add_vote(request.user)
 
     page = paginate(request, all_questions)
 
@@ -58,6 +64,7 @@ def newQuestion(request):
 
     return render(request, 'ask.html', {'form': form})
 
+
 def newAnswer(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
 
@@ -88,11 +95,11 @@ def newAnswer(request, question_id):
     else:
         form = AnswerForm()
 
-    query_set = Question.objects.add_likes()
+    query_set = Question.objects.add_likes().add_vote(request.user)
 
     question_for_render = get_object_or_404(query_set, pk=question_id)
 
-    answers = question_for_render.answers.new()
+    answers = question_for_render.answers.new().add_vote(request.user)
 
     tags = question_for_render.tags.all()
 
@@ -204,7 +211,7 @@ def registrate(request):
     return render(request, 'register.html', {'form': form})
 
 def hotQuestion(request):
-    hot_questions = Question.objects.best().prefetch_related('tags')
+    hot_questions = Question.objects.best().prefetch_related('tags').add_vote(request.user)
 
     page = paginate(request, hot_questions)
 
@@ -212,3 +219,76 @@ def hotQuestion(request):
         'questions': page.object_list,
         'page_obj': page,
     })
+
+@require_POST
+@login_required
+def updateLike(request):
+    try:
+        data = json.loads(request.body)
+        object_id = data.get('object_id')
+        object_type = data.get('object_type')
+        action = data.get('action')
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+    model_map = {
+        'question' : Question,
+        'answer' : Answer
+    }
+
+    Model = model_map.get(object_type)
+
+    if not Model:
+        return JsonResponse({'error': 'Wrong object type'}, status=400)
+
+    user = request.user.profile
+    obj = get_object_or_404(Model, pk=object_id)
+
+    content_type = ContentType.objects.get_for_model(obj)
+
+    existing_like = Like.objects.filter(
+        user=user,
+        content_type=content_type,
+        object_id=obj.id,
+    ).first()
+
+    new_value = 1 if action == 'like' else -1
+
+    if existing_like:
+        if existing_like.value == new_value:
+            existing_like.delete()
+        else:
+            existing_like.value = new_value
+            existing_like.save()
+    else:
+        Like.objects.create(
+            content_type=content_type,
+            user=user,
+            object_id=obj.id,
+            value=new_value
+        )
+
+    new_rating = obj.likes.aggregate(total = Sum('value'))['total'] or 0
+    return JsonResponse({'rating': new_rating})
+
+@require_POST
+@login_required
+def updateCorrect(request):
+    try:
+        data = json.loads(request.body)
+        answer_id = data.get('answer_id')
+        is_correct = data.get('is_correct')
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Wrong object type'}, status=400)
+
+    answer = get_object_or_404(Answer, pk=answer_id)
+
+    question = answer.question
+
+    if (question.user.user != request.user):
+        return JsonResponse({'error': 'No permission'}, status=403)
+
+    answer.is_correct = is_correct
+    answer.save()
+
+    return JsonResponse({'status': 'ok'}, status=200)

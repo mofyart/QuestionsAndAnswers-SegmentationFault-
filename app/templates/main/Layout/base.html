@@ -79,15 +79,15 @@
                 <div class="sidebar-widget">
                     <h3>Best Members</h3>
                     <ul class="member-list">
-                        <li><a href="#">Artem</a></li>
-                        <li><a href="#">Luka</a></li>
-                        <li><a href="#">Andrey</a></li>
-                        <li><a href="#">Nikita</a></li>
-                        <li><a href="#">Leha</a></li>
+                        {% for user in best_users %}
+                            <li>{{ user.nick_name }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </aside>
         </main>
     </div>
+
+    <script src="{% static 'main/js/main.js' %}"></script>
 </body>
 </html>

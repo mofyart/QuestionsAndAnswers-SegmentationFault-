@@ -9,10 +9,27 @@
                 <img src="{% static 'main/default.jpg' %}">
             {% endif %}
         </div>
+
         <div class="vote-controls">
-            <span>▲</span>
-            <div class="vote-count">{{ q.likes_count }}</div>
-            <span>▼</span>
+            <button class="js-vote-btn upvote {% if q.user_vote == 1 %}active{% endif %}"
+                    data-id="{{ q.id }}"
+                    data-type="question"
+                    data-action="like">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="18 15 12 9 6 15"></polyline>
+                    </svg>
+            </button>
+
+            <div class="vote-count" id="rating-question-{{ q.id }}">{{ q.likes_count }}</div>
+
+            <button class="js-vote-btn downvote {% if q.user_vote == -1 %}active{% endif %}"
+                    data-id="{{ q.id }}"
+                    data-type="question"
+                    data-action="dislike">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+            </button>
         </div>
     </div>
     <div class="question-details">
