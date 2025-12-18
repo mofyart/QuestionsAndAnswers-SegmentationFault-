@@ -107,7 +107,6 @@ document.querySelectorAll('.js-correct-btn').forEach(checkbox => {
   checkbox.addEventListener('change', function() {
     const answerId = this.dataset.answerId;
     const isCorrect = this.checked;
-    // добавить ClassList/ ADD что это ?
     const idetifyPath = `answer-${answerId}`;
 
 
@@ -134,6 +133,7 @@ document.querySelectorAll('.js-correct-btn').forEach(checkbox => {
       if (data.status === 'ok') {
           console.log('Статус обновлен');
           const answerBlock = document.getElementById(idetifyPath);
+
           if (answerBlock) {
             if (isCorrect) {
                 answerBlock.classList.add('correct-answer');
@@ -154,5 +154,62 @@ document.querySelectorAll('.js-correct-btn').forEach(checkbox => {
         this.disabled = false;
     });
 
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () =>{
+  document.querySelectorAll('.js-rating').forEach(el => {
+    const objectId = el.dataset.id;
+    const objectType = el.dataset.type;
+
+    fetch(`/ajax/vote/?object_id=${objectId}&object_type=${objectType}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      return response.json();
+    })
+    .then(data => {
+      if (data.rating !== undefined) {
+        el.innerText = data.rating;
+
+        if (data.value === 1) {
+          document.querySelector(`[data-id='${objectId}'][data-type='${objectType}'][data-action='like']`).classList.add('active');
+          document.querySelector(`[data-id='${objectId}'][data-type='${objectType}'][data-action='dislike']`).classList.remove('active');
+        } else if (data.value === -1) {
+          document.querySelector(`[data-id='${objectId}'][data-type='${objectType}'][data-action='dislike']`).classList.add('active');
+          document.querySelector(`[data-id='${objectId}'][data-type='${objectType}'][data-action='like']`).classList.remove('active');
+        } else {
+          document.querySelector(`[data-id='${objectId}'][data-type='${objectType}'][data-action='dislike']`).classList.remove('active');
+          document.querySelector(`[data-id='${objectId}'][data-type='${objectType}'][data-action='like']`).classList.remove('active');
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Ошибка:', error);
+      alert("Что-то пошло не так при голосовании");
+    })
+  });
+
+  document.querySelectorAll('.js-correct-btn').forEach(checkbox => {
+    answerId = checkbox.dataset.answerId;
+
+    fetch(`/ajax/correct/?answer_id=${answerId}`)
+    .then(response => response.json())
+    .then(data => {
+      checkbox.checked = data.is_correct;
+
+      const answerBlock = document.getElementById(`answer-${answerId}`);
+
+      if (answerBlock) {
+        if (data.is_correct) {
+          answerBlock.classList.add('correct-answer');
+        } else {
+          answerBlock.classList.remove('correct-answer');
+        }
+      }
+    })
+    .catch(console.error)
   });
 });

@@ -20,7 +20,10 @@
                     </svg>
             </button>
 
-            <div class="vote-count" id="rating-question-{{ q.id }}">{{ q.likes_count }}</div>
+            <div class="vote-count js-rating"
+            id="rating-question-{{ q.id }}"
+            data-id="{{ q.id }}"
+            data-type="question">{{ q.likes_count }}</div>
 
             <button class="js-vote-btn downvote {% if q.user_vote == -1 %}active{% endif %}"
                     data-id="{{ q.id }}"

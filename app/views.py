@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 
 
 from app.forms import AnswerForm, QuestionForm, LoginForm, RegisterForm, SettingsForm
@@ -220,9 +221,44 @@ def hotQuestion(request):
         'page_obj': page,
     })
 
-@require_POST
+@require_http_methods(["GET", "POST"])
 @login_required
 def updateLike(request):
+    if request.method == 'GET':
+        object_id = request.GET.get('object_id')
+        object_type = request.GET.get('object_type')
+
+        model_map = {
+            'question' : Question,
+            'answer' : Answer
+        }
+
+        Model = model_map.get(object_type)
+
+        if not Model:
+            return JsonResponse({'error': 'Wrong object type'}, status=400)
+
+        obj = get_object_or_404(Model, pk=object_id)
+
+        value = 0
+        if request.user.is_authenticated:
+            content_type = ContentType.objects.get_for_model(obj)
+            existing_like = Like.objects.filter(
+                user=request.user.profile,
+                content_type = content_type,
+                object_id = obj.id
+            ).first()
+
+            value = existing_like.value if existing_like else 0
+
+
+        new_rating = obj.likes.aggregate(total = Sum('value'))['total'] or 0
+        return JsonResponse({
+            'rating': new_rating,
+            'value': value
+        })
+
+
     try:
         data = json.loads(request.body)
         object_id = data.get('object_id')
@@ -271,9 +307,19 @@ def updateLike(request):
     new_rating = obj.likes.aggregate(total = Sum('value'))['total'] or 0
     return JsonResponse({'rating': new_rating})
 
-@require_POST
+
+
+@require_http_methods(["GET", "POST"])
 @login_required
 def updateCorrect(request):
+    if request.method == 'GET':
+        answer_id = request.GET.get('answer_id')
+
+        answer = get_object_or_404(Answer, pk=answer_id)
+
+        return JsonResponse({'is_correct': answer.is_correct})
+
+
     try:
         data = json.loads(request.body)
         answer_id = data.get('answer_id')
