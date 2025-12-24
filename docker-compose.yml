@@ -35,6 +35,28 @@ services:
     depends_on:
       - web
 
+  centrifugo:
+    container_name: centrifugo
+    image: centrifugo/centrifugo:v6
+    volumes:
+      - ./centrifugo.json:/centrifugo/config.json
+    command: centrifugo -c config.json
+    # env_file:
+    #   - .env
+    # environment:
+    #   - CENTRIFUGO_API_KEY=${CENTRIFUGO_API_KEY}
+    #   - CENTRIFUGO_TOKEN_HMAC_SECRET_KEY=${CENTRIFUGO_HMAC_SECRET_KEY}
+    #   - CENTRIFUGO_ADMIN_PASSWORD=${CENTRIFUGO_ADMIN_PASSWORD}
+    #   - CENTRIFUGO_ADMIN_SECRET=${CENTRIFUGO_ADMIN_SECRET}
+    ports:
+      - 8000:8000
+      - 8001:8001
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+
+
 volumes:
   postgres_data:
   static_volume:

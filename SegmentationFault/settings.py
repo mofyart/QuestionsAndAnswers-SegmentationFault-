@@ -31,14 +31,17 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-
-
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+
+
+CENTRIFUGO_API_URL = env('CENTRIFUGO_API_URL')
+CENTRIFUGO_API_KEY = env('CENTRIFUGO_API_KEY')
+CENTRIFUGO_HMAC_SECRET_KEY = env('CENTRIFUGO_HMAC_SECRET_KEY')
 
 
 # Application definition
@@ -78,6 +81,7 @@ TEMPLATES = [
 
                 'app.context_processors.get_best_tags',
                 'app.context_processors.get_best_users',
+                'app.context_processors.get_jwt_user',
             ],
         },
     },
@@ -129,8 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'app/static'
-# TODO: Не забыть поменять на static
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
       BASE_DIR / 'app/static/main'
@@ -139,13 +142,11 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 
+MEDIA_ROOT = BASE_DIR / 'app/media'
+
 MEDIA_DIRS = [
       BASE_DIR / 'app/media/'
 ]
-
-MEDIA_ROOT = BASE_DIR / 'app/media'
-
-
 
 
 # Default primary key field type

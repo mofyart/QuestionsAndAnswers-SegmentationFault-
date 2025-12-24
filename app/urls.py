@@ -12,5 +12,6 @@ urlpatterns = [
     path('hotquestion/', views.hotQuestion, name="hotquestion"),
     path('logout/', views.logOut, name="logout"),
     path('ajax/vote/', views.updateLike, name="object_like"),
-    path('ajax/correct/', views.updateCorrect, name="object_correct")
+    path('ajax/correct/', views.updateCorrect, name="object_correct"),
+    path('ajax/search/', views.searchItem, name="search_object")
 ]

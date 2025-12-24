@@ -73,49 +73,6 @@ header {
     text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
 }
 
-.search {
-    display: flex;
-    align-items: center;
-    margin-right: 30px;
-}
-
-.search input[type="text"] {
-    background-color: #1E1B2E;
-    border: 1px solid #4A4A6A;
-    border-radius: 8px;
-    color: #FFFFFF;
-    padding: 10px 15px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s ease;
-    width: 250px;
-}
-
-.search input[type="text"]::placeholder {
-    color: #8A8AA0;
-}
-
-.search input[type="text"]:focus {
-    border-color: #7B68EE;
-}
-
-.search-button {
-    background-color: #007BFF;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 8px;
-    padding: 11px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.search-button:hover {
-    background-color: #0056b3;
-}
-
 
 /* Стили для профиля
 .profile {
@@ -316,6 +273,7 @@ nav a:hover {
     height: 100%;
     object-fit: cover;      /* Картинка заполнит круг, не искажаясь */
     display: block;         /* Убираем нижний отступ */
+    border-radius: 6px;
 }
 
 /* Общий контейнер */
@@ -1016,6 +974,125 @@ nav a:hover {
     color: white;
     border-color: var(--vk-blue);
 }
+
+
+/* Контейнер поиска */
+.search {
+    position: relative;       /* для абсолютного позиционирования меню */
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+/* Поле ввода */
+.search-input {
+    flex: 1 1 auto;
+    width: 100%;
+    background-color: #1a1b2e;
+    border: 1px solid #2d2f45;
+    border-radius: 8px;
+    padding: 10px 16px;
+    color: #e0e0e0;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+    border-color: #7c4dff;
+    box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.2);
+}
+
+.search-input::placeholder {
+    color: #6c757d;
+}
+
+/* Кнопка ASK */
+.search-button {
+    background-color: #007BFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Выпадающий список результатов */
+#search-results.dropdown-menu {
+    display: none;               /* по умолчанию скрыт */
+    position: absolute;
+    top: 100%;                   /* сразу под инпутом */
+    left: 0;
+    width: 100%;
+    margin-top: 8px;
+
+    background-color: #1f2036;
+    border: 1px solid #363852;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+/* Показываем, когда JS добавляет класс show */
+#search-results.dropdown-menu.show {
+    display: block;
+}
+
+/* Скроллбар (WebKit) */
+#search-results::-webkit-scrollbar {
+    width: 6px;
+}
+
+#search-results::-webkit-scrollbar-thumb {
+    background-color: #3f4166;
+    border-radius: 3px;
+}
+
+#search-results::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Элементы внутри списка */
+.dropdown-item {
+    display: block;
+    padding: 12px 16px;
+    color: #d1d5db;
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 1px solid #2d2f45;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: #2a2c45;
+    color: #7c4dff;
+}
+
+.dropdown-item.no-results {
+    color: #9ca3af;
+    cursor: default;
+    pointer-events: none;
+}
+
 
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {

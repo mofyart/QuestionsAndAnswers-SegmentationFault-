@@ -1,5 +1,5 @@
 import json
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render, redirect
@@ -10,11 +10,16 @@ from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.template.loader import render_to_string
 
+from cent import Client, PublishRequest
 
+from SegmentationFault.settings import CENTRIFUGO_API_URL, CENTRIFUGO_API_KEY
 from app.forms import AnswerForm, QuestionForm, LoginForm, RegisterForm, SettingsForm
 from app.models import Like, Profile, Question, Answer, Tag
+
+
 
 def paginate(request, objects, per_page=5):
     page_num = request.GET.get('page', 1)
@@ -80,6 +85,22 @@ def newAnswer(request, question_id):
                 user=request.user.profile,
                 question=question
             )
+
+            answer_html = render_to_string('main/Layout/answer.html',
+                                           {'answer' : answer},
+                                           request=request)
+
+            try:
+                client = Client(CENTRIFUGO_API_URL, api_key=CENTRIFUGO_API_KEY, timeout=1)
+
+                request_data = PublishRequest(
+                    channel=f"question:{question_id}",
+                    data={'html' : answer_html}
+                )
+
+                client.publish(request_data)
+            except Exception as err:
+                print(f"Centrifugo error: {err}")
 
             all_answers_count = question.answers.count()
             page_size = 5
@@ -221,42 +242,42 @@ def hotQuestion(request):
         'page_obj': page,
     })
 
-@require_http_methods(["GET", "POST"])
+@require_POST
 @login_required
 def updateLike(request):
-    if request.method == 'GET':
-        object_id = request.GET.get('object_id')
-        object_type = request.GET.get('object_type')
+    # if request.method == 'GET':
+    #     object_id = request.GET.get('object_id')
+    #     object_type = request.GET.get('object_type')
 
-        model_map = {
-            'question' : Question,
-            'answer' : Answer
-        }
+    #     model_map = {
+    #         'question' : Question,
+    #         'answer' : Answer
+    #     }
 
-        Model = model_map.get(object_type)
+    #     Model = model_map.get(object_type)
 
-        if not Model:
-            return JsonResponse({'error': 'Wrong object type'}, status=400)
+    #     if not Model:
+    #         return JsonResponse({'error': 'Wrong object type'}, status=400)
 
-        obj = get_object_or_404(Model, pk=object_id)
+    #     obj = get_object_or_404(Model, pk=object_id)
 
-        value = 0
-        if request.user.is_authenticated:
-            content_type = ContentType.objects.get_for_model(obj)
-            existing_like = Like.objects.filter(
-                user=request.user.profile,
-                content_type = content_type,
-                object_id = obj.id
-            ).first()
+    #     value = 0
+    #     if request.user.is_authenticated:
+    #         content_type = ContentType.objects.get_for_model(obj)
+    #         existing_like = Like.objects.filter(
+    #             user=request.user.profile,
+    #             content_type = content_type,
+    #             object_id = obj.id
+    #         ).first()
 
-            value = existing_like.value if existing_like else 0
+    #         value = existing_like.value if existing_like else 0
 
 
-        new_rating = obj.likes.aggregate(total = Sum('value'))['total'] or 0
-        return JsonResponse({
-            'rating': new_rating,
-            'value': value
-        })
+    #     new_rating = obj.likes.aggregate(total = Sum('value'))['total'] or 0
+    #     return JsonResponse({
+    #         'rating': new_rating,
+    #         'value': value
+    #     })
 
 
     try:
@@ -309,15 +330,15 @@ def updateLike(request):
 
 
 
-@require_http_methods(["GET", "POST"])
+@require_POST
 @login_required
 def updateCorrect(request):
-    if request.method == 'GET':
-        answer_id = request.GET.get('answer_id')
+    # if request.method == 'GET':
+    #     answer_id = request.GET.get('answer_id')
 
-        answer = get_object_or_404(Answer, pk=answer_id)
+    #     answer = get_object_or_404(Answer, pk=answer_id)
 
-        return JsonResponse({'is_correct': answer.is_correct})
+    #     return JsonResponse({'is_correct': answer.is_correct})
 
 
     try:
@@ -338,3 +359,28 @@ def updateCorrect(request):
     answer.save()
 
     return JsonResponse({'status': 'ok'}, status=200)
+
+
+def searchItem(request):
+    query = request.GET.get('q')
+
+    if len(query) < 2:
+        return JsonResponse({'results' : []})
+
+    search_vector = SearchVector('title', weight='A') + SearchVector('text', weight='B')
+    search_query = SearchQuery(query)
+
+    full_find_objects = Question.objects.annotate(rank=SearchRank(search_vector, search_query)).filter(rank__gte=0.1)
+
+    similar_find_objects = Question.objects.filter(Q(title__icontains=query) | Q(text__icontains=query))
+
+    list_objects = (full_find_objects | similar_find_objects).distinct().order_by('-id')[:5]
+
+    data = [
+        {
+            'id' : q.id,
+            'title' : q.title,
+        } for  q in list_objects
+    ]
+
+    return JsonResponse({'results' : data})
