@@ -54,7 +54,45 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
 ]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "session_storage"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
+    "session_storage": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/2",
+    }
+
+
+}
+
+TIME_ZONE = 'UTC'
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER ='json'
+CELERY_TIMEZONE = TIME_ZONE
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'refresh-cache-best-tags-users' : {
+        'task' : 'app.tasks.refresh_best_tags_users',
+        'schedule' : crontab(minute='*/2')
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,8 +117,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.contrib.auth.context_processors.auth',
 
-                'app.context_processors.get_best_tags',
-                'app.context_processors.get_best_users',
+                # 'app.context_processors.get_best_tags',
+                # 'app.context_processors.get_best_users',
                 'app.context_processors.get_jwt_user',
             ],
         },
@@ -93,11 +131,19 @@ WSGI_APPLICATION = 'SegmentationFault.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': env.db()
+default_db_config = env.db()
+default_db_config['OPTIONS'] = {
+    **default_db_config.get('OPTIONS', {}),
+    'pool': {
+        'min_size': 2,
+        'max_size': 5,
+        'timeout': 10,
+    }
 }
 
-
+DATABASES = {
+    'default': default_db_config
+}
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

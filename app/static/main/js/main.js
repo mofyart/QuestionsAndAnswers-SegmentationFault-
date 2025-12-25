@@ -217,9 +217,13 @@ if (searchInput) {
   });
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
+  const container = document.querySelector('.questions-list');
+
+  if (!container) {
+    return;
+  }
+
   const tokenElement = document.getElementById('centrifugo-token-data');
   const tokenValue = JSON.parse(tokenElement.textContent);
 
@@ -243,8 +247,6 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log('disconnected', ctx);
   });
 
-
-  const container = document.querySelector('.questions-list');
   const questionId = container.dataset.questionId;
   const sub = client.newSubscription(`question:${questionId}`);
 

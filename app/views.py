@@ -102,18 +102,8 @@ def newAnswer(request, question_id):
             except Exception as err:
                 print(f"Centrifugo error: {err}")
 
-            all_answers_count = question.answers.count()
-            page_size = 5
-
-            last_page = (all_answers_count + page_size - 1) // page_size
-
-            if last_page < 1: last_page = 1
-
-            question_url = reverse('question', kwargs={'question_id': question.pk})
-
-            redirect_url = f"{question_url}?page={last_page}#answer-{answer.id}"
-
-            return redirect(redirect_url)
+            url = reverse('question', args=[question.pk])
+            return redirect(f"{url}?page={1}#answer-{answer.id}")
     else:
         form = AnswerForm()
 

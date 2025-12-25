@@ -1,4 +1,5 @@
 {% load static %}
+{% load sidebar %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -78,6 +79,7 @@
             <aside class="sidebar">
                 <div class="sidebar-widget">
                     <h3>Popular Tags</h3>
+                    {% show_best_tags as best_tags %}
                     <div class="tag-cloud">
                         {% for tag in best_tags %}
                             <a href="{% url 'tag' tag.id %}" class="tag-{% cycle '1' '2' '3' '4' '5' '6' '7' '8' '9' %}">{{ tag.name }}</a>
@@ -87,6 +89,7 @@
 
                 <div class="sidebar-widget">
                     <h3>Best Members</h3>
+                    {% show_best_users as best_users %}
                     <ul class="member-list">
                         {% for user in best_users %}
                             <li>{{ user.nick_name }}</li>
