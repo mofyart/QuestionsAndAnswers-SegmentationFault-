@@ -163,8 +163,8 @@ function debounce(func, timeWait) {
 
   return function(...args) {
     const context = this;
-    clearTimeout(timeout)
-    timeout = setTimeout(() => func.apply(context, args), timeWait)
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), timeWait);
   }
 }
 
@@ -181,7 +181,7 @@ function performSearch(query) {
   .then(response => response.json()
   )
   .then(data => {
-    console.log('data:', data);              // должно быть {results: [...]}
+    console.log('data:', data);
     console.log('results len:', data.results.length);
     resultsContainer.innerHTML = '';
 

@@ -15,7 +15,6 @@ services:
     ports:
        - "6379:6379"
 
-
   web:
     build: .
     container_name: segmentationfault_web

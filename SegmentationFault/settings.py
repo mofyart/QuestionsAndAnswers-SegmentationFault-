@@ -72,8 +72,6 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://redis:6379/2",
     }
-
-
 }
 
 TIME_ZONE = 'UTC'
