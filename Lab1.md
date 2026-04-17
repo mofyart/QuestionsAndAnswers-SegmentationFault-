@@ -13,7 +13,7 @@
 
 ### Описание реализации
 
-Создана базовая верстка страницы в файле `base.html`, которая служит шаблоном для всех остальных страниц. 
+Создана базовая верстка страницы в файле `base.html`, которая служит шаблоном для всех остальных страниц.
 
 #### Основные компоненты:
 
@@ -40,7 +40,7 @@
         <a href="{% url 'index' %}">SegmentationFault</a>
     </div>
     <div class="search">
-        <input type="text" name="search" id="search-input" 
+        <input type="text" name="search" id="search-input"
                placeholder="Search" class="search-input">
         <div id="search-results" class="dropdown-menu"></div>
         {% if user.is_authenticated %}
@@ -104,10 +104,10 @@
 ```
 
 #### Особенности дизайна:
-✅ Терпимые отступы (padding/margin) между блоками - `2rem`, `1.5rem`  
-✅ Темная тема с контрастными элементами  
-✅ Плавные переходы (transitions) при наведении  
-✅ Логотип в правой колонке слева  
+✅ Терпимые отступы (padding/margin) между блоками - `2rem`, `1.5rem`
+✅ Темная тема с контрастными элементами
+✅ Плавные переходы (transitions) при наведении
+✅ Логотип в правой колонке слева
 ✅ Блоки в правой колонке (Popular Tags, Best Members)
 
 ---
@@ -138,13 +138,13 @@
 
 {% block content %}
     <div class="questions-list">
-        {% include "main/Layout/header.html" with 
-            title="New Questions" 
-            link=linkHotQuestion 
+        {% include "main/Layout/header.html" with
+            title="New Questions"
+            link=linkHotQuestion
             linkName="Hot Questions" %}
 
         {% for question in questions %}
-            {% include "main/Layout/question.html" 
+            {% include "main/Layout/question.html"
                 with q=question tags=tags %}
         {% endfor %}
 
@@ -284,10 +284,10 @@
 ```
 
 #### Особенности дизайна:
-✅ Аватарки авторов с border-radius  
-✅ Кнопки лайков с интерактивным дизайном  
-✅ Теги с разными цветами  
-✅ Ссылки на ответы  
+✅ Аватарки авторов с border-radius
+✅ Кнопки лайков с интерактивным дизайном
+✅ Теги с разными цветами
+✅ Ссылки на ответы
 ✅ Пагинатор внизу списка
 
 ---
@@ -316,7 +316,7 @@
 
 {% block content %}
     <div class="questions-list" data-question-id="{{ question.id }}">
-        
+
         <!-- Блок ошибок -->
         {% if form.errors %}
             <div class="messages">
@@ -332,29 +332,29 @@
         {% endif %}
 
         <!-- Полный вопрос -->
-        {% include 'main/Layout/question.html' 
+        {% include 'main/Layout/question.html'
             with q=question tags=tags %}
 
         <!-- Все ответы -->
         <div class="answers-section">
             {% for answer in answers %}
-                {% include 'main/Layout/answer.html' 
+                {% include 'main/Layout/answer.html'
                     with answer=answer %}
             {% endfor %}
         </div>
 
         <!-- Форма для добавления ответа -->
         {% if user.is_authenticated %}
-            <form action="{% url 'question' question.id %}" 
+            <form action="{% url 'question' question.id %}"
                   method="post" class="question-form">
                 {% csrf_token %}
-                {% include "main/Layout/formFilling.html" 
-                    with textareaPole=True 
-                         label="Your answer" 
-                         name="text" 
-                         rows="6" 
+                {% include "main/Layout/formFilling.html"
+                    with textareaPole=True
+                         label="Your answer"
+                         name="text"
+                         rows="6"
                          placeholder="Enter your answer here.." %}
-                {% include 'main/Layout/formAction.html' 
+                {% include 'main/Layout/formAction.html'
                     with buttonBlock=True title="Answer" %}
             </form>
         {% endif %}
@@ -369,7 +369,7 @@
 <!-- Layout/answer.html -->
 <article class="answer-item {% if answer.is_correct %} 
          correct-answer {% endif %}" id="answer-{{ answer.id }}">
-    
+
     <div class="question-meta">
         <!-- Аватар автора ответа -->
         <div class="avatar-question">
@@ -384,7 +384,7 @@
         <div class="vote-controls">
             <button class="js-vote-btn upvote 
                     {% if answer.user_vote == 1 %}active{% endif %}"
-                    data-id="{{ answer.id }}" 
+                    data-id="{{ answer.id }}"
                     data-type="answer">
                 <svg width="24" height="24">...</svg>
             </button>
@@ -448,9 +448,9 @@
 ```
 
 #### Особенности дизайна:
-✅ Список тегов у вопроса  
-✅ Список ответов по верстке аналогичен листингу вопросов  
-✅ Пагинатор ответов  
+✅ Список тегов у вопроса
+✅ Список ответов по верстке аналогичен листингу вопросов
+✅ Пагинатор ответов
 ✅ Форма для добавления нового ответа (видна только авторизованным)
 
 ---
@@ -477,9 +477,9 @@
 
 {% block content %}
     <div class="content-column">
-        {% include "main/Layout/header.html" 
-            with title="New Questions" 
-                 link=linkHotQuestion 
+        {% include "main/Layout/header.html"
+            with title="New Questions"
+                 link=linkHotQuestion
                  linkName="Hot Questions" %}
 
         <!-- Блок ошибок -->
@@ -501,35 +501,35 @@
             {% csrf_token %}
 
             <!-- Поле заголовка -->
-            {% include "main/Layout/formFilling.html" 
-                with appointment="question-title" 
-                     label="Title" 
-                     name="title" 
-                     placeholder="Write text, please" 
+            {% include "main/Layout/formFilling.html"
+                with appointment="question-title"
+                     label="Title"
+                     name="title"
+                     placeholder="Write text, please"
                      value=form.title.value %}
 
             <!-- Поле текста -->
-            {% include "main/Layout/formFilling.html" 
-                with label="Text" 
-                     textareaPole=True 
-                     appointment="question-text" 
-                     name="text" 
-                     rows="8" 
-                     placeholder="Really, how ? Have no idea about it" 
+            {% include "main/Layout/formFilling.html"
+                with label="Text"
+                     textareaPole=True
+                     appointment="question-text"
+                     name="text"
+                     rows="8"
+                     placeholder="Really, how ? Have no idea about it"
                      value=form.text.value %}
 
             <!-- Поле тегов -->
-            {% include "main/Layout/formFilling.html" 
-                with appointment="question-tags" 
-                     label="Tags" 
-                     name="tags" 
-                     placeholder="moon, park, puzzle" 
-                     smallPole="True" 
-                     inscription="Specify the tags separated by commas" 
+            {% include "main/Layout/formFilling.html"
+                with appointment="question-tags"
+                     label="Tags"
+                     name="tags"
+                     placeholder="moon, park, puzzle"
+                     smallPole="True"
+                     inscription="Specify the tags separated by commas"
                      value=form.tags.value %}
 
             <!-- Кнопка отправки -->
-            {% include 'main/Layout/formAction.html' 
+            {% include 'main/Layout/formAction.html'
                 with buttonBlock=True title="Create" %}
         </form>
     </div>
@@ -638,10 +638,10 @@
 ```
 
 #### Особенности дизайна:
-✅ Вывод сообщений об ошибках формы  
-✅ Подсказки к полям (для Tags поля)  
-✅ Ширина всех полей - 100%  
-✅ Max-width для textarea и текстовых полей  
+✅ Вывод сообщений об ошибках формы
+✅ Подсказки к полям (для Tags поля)
+✅ Ширина всех полей - 100%
+✅ Max-width для textarea и текстовых полей
 ✅ Плавный переход цвета при фокусе
 
 ---
@@ -680,7 +680,7 @@
 {% block content %}
     <div class="content-column">
         {% include "main/Layout/header.html" with title="Log In" %}
-        
+
         <!-- Блок ошибок -->
         {% if form.errors %}
             <div class="messages">
@@ -700,26 +700,26 @@
                 {% csrf_token %}
 
                 <!-- Username -->
-                {% include "main/Layout/formFilling.html" 
-                    with appointment="login-username" 
-                         label="Log in" 
-                         name="username" 
-                         placeholder="Enter your login here" 
+                {% include "main/Layout/formFilling.html"
+                    with appointment="login-username"
+                         label="Log in"
+                         name="username"
+                         placeholder="Enter your login here"
                          value=form.username.value %}
-                
+
                 <!-- Password -->
-                {% include "main/Layout/formFilling.html" 
-                    with appointment="login-password" 
-                         label="Password" 
-                         name="password" 
-                         placeholder="********" 
+                {% include "main/Layout/formFilling.html"
+                    with appointment="login-password"
+                         label="Password"
+                         name="password"
+                         placeholder="********"
                          type="password" %}
 
                 <!-- Кнопка и ссылка на регистрацию -->
                 {% url 'register' as registerUrl %}
-                {% include "main/Layout/formAction.html" 
-                    with buttonBlock=True 
-                         title="Log in" 
+                {% include "main/Layout/formAction.html"
+                    with buttonBlock=True
+                         title="Log in"
                          createAccountLink=registerUrl %}
             </form>
         </div>
@@ -735,7 +735,7 @@
 
 {% block content %}
     <div class="content-column">
-        {% include "main/Layout/header.html" 
+        {% include "main/Layout/header.html"
             with title="Registration" %}
 
         <!-- Блок ошибок -->
@@ -753,59 +753,59 @@
         {% endif %}
 
         <div class="login-container">
-            <form action="" method="post" class="login-form" 
+            <form action="" method="post" class="login-form"
                   enctype="multipart/form-data">
                 {% csrf_token %}
 
                 <!-- Username -->
-                {% include 'main/Layout/formFilling.html' 
-                    with appointment="login-username" 
-                         label="Login" 
-                         name="username" 
-                         placeholder="Enter your login here" 
+                {% include 'main/Layout/formFilling.html'
+                    with appointment="login-username"
+                         label="Login"
+                         name="username"
+                         placeholder="Enter your login here"
                          value=form.username.value %}
-                
+
                 <!-- Email -->
-                {% include 'main/Layout/formFilling.html' 
-                    with appointment="login-email" 
-                         label="Email" 
-                         name="email" 
-                         placeholder="Enter your Email here" 
+                {% include 'main/Layout/formFilling.html'
+                    with appointment="login-email"
+                         label="Email"
+                         name="email"
+                         placeholder="Enter your Email here"
                          value=form.email.value %}
 
                 <!-- Nickname -->
-                {% include 'main/Layout/formFilling.html' 
-                    with appointment="login-nickname" 
-                         label="NickName" 
-                         name="nick_name" 
-                         placeholder="Enter your nickname here" 
+                {% include 'main/Layout/formFilling.html'
+                    with appointment="login-nickname"
+                         label="NickName"
+                         name="nick_name"
+                         placeholder="Enter your nickname here"
                          value=form.nick_name.value %}
 
                 <!-- Password -->
-                {% include 'main/Layout/formFilling.html' 
-                    with appointment="login-password" 
-                         label="Password" 
-                         name="password" 
-                         placeholder="********" 
+                {% include 'main/Layout/formFilling.html'
+                    with appointment="login-password"
+                         label="Password"
+                         name="password"
+                         placeholder="********"
                          type="password" %}
 
                 <!-- Repeat Password -->
-                {% include 'main/Layout/formFilling.html' 
-                    with appointment="login-password" 
-                         label="Repeat Password" 
-                         name="repeat_password" 
-                         placeholder="********" 
+                {% include 'main/Layout/formFilling.html'
+                    with appointment="login-password"
+                         label="Repeat Password"
+                         name="repeat_password"
+                         placeholder="********"
                          type="password" %}
 
                 <!-- Avatar Upload -->
-                {% include 'main/Layout/formAction.html' 
-                    with avatarChoose=True 
-                         label="Avatar" 
-                         button="Choose" 
+                {% include 'main/Layout/formAction.html'
+                    with avatarChoose=True
+                         label="Avatar"
+                         button="Choose"
                          name="avatar" %}
 
                 <!-- Register Button -->
-                {% include 'main/Layout/formAction.html' 
+                {% include 'main/Layout/formAction.html'
                     with buttonBlock=True title="Register" %}
             </form>
         </div>
@@ -1000,11 +1000,11 @@
 ```
 
 #### Особенности дизайна:
-✅ Вывод сообщений об ошибках формы и подсказок  
-✅ Ширина полей ввода - 100%  
-✅ Max-width контейнера формы - 500px  
-✅ Выбор аватара с отображением имени файла  
-✅ Ссылка на создание нового аккаунта в форме логина  
+✅ Вывод сообщений об ошибках формы и подсказок
+✅ Ширина полей ввода - 100%
+✅ Max-width контейнера формы - 500px
+✅ Выбор аватара с отображением имени файла
+✅ Ссылка на создание нового аккаунта в форме логина
 ✅ Плавные переходы при фокусе на полях
 
 ---
@@ -1050,5 +1050,5 @@
 
 ---
 
-**Дата создания:** 17.04.2026  
-**Разработчик:** Mofyart
+**Дата создания:** 17.04.2026
+**Разработчик:** Бксыгин А.Д. ИУ5-46Б
